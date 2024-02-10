@@ -1,0 +1,121 @@
+.half {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+
+  &_box {
+    box-shadow: 0px 1px 8px 0px rgba(34, 60, 80, 0.2);
+    border-radius: 20px;
+    display: flex;
+
+    &_flextable {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}
+
+.textt {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.half_box_inner {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.xisobot_flex_list_item_box_flex {
+  width: 370px;
+  display: flex;
+  gap: 10px;
+}
+
+.box_student {
+  height: 250px;
+  margin-top: -10px;
+  overflow: scroll;
+  box-shadow: 0px 1px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.table {
+  width: 100%;
+
+  &_list {
+    color: #fff;
+    background: #2f49d1;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    &_text {
+      width: 230px;
+    }
+  }
+
+  &_list_item {
+    padding: 20px;
+    justify-content: space-between;
+    display: flex;
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+  }
+
+  &_form {
+    margin-top: 20px;
+
+    &_heading {
+      text-align: center;
+      font-weight: 500;
+    }
+
+    &_form {
+      &_inp {
+        width: 100%;
+        height: 120px;
+        margin-top: 20px;
+        padding: 20px;
+        outline: none;
+        border: none;
+        background: #d9d9d9;
+        resize: none;
+      }
+
+      &_btn {
+        margin-left: auto;
+        display: block;
+        color: #fff;
+        border: none;
+        background: #2f49d1;
+        padding: 5px 25px 5px 25px;
+        border-radius: 7px;
+        margin-top: 8px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.guruh_btn {
+  width: 100%;
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  background: #2f49d1;
+  color: #fff;
+  display: block;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.guruh_btn:hover {
+  background: #0543a1;
+}
+
+.guruh_box4 {
+  width: 770px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  overflow-x: auto;
+}

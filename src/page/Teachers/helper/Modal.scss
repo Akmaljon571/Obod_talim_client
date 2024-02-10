@@ -1,0 +1,47 @@
+.modal_form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+
+  &_bir {
+    // margin-bottom: 10px;
+    margin-left: 12px;
+  }
+
+  &_box {
+    display: flex;
+    gap: 25px;
+    margin-right: 250px;
+  }
+
+  &_inp {
+    width: 225px;
+    height: 35px;
+    border-radius: 5px;
+    background: #d9d9d9;
+    border: none;
+    outline: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: block;
+  }
+
+  &_img {
+    position: absolute;
+    top: 26px;
+    left: 12px;
+    cursor: pointer;
+  }
+
+  &_spn {
+    position: absolute;
+    left: 48px;
+    top: 28px;
+  }
+}
+
+.check {
+  width: 800px !important;
+}

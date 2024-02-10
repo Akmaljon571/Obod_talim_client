@@ -1,0 +1,78 @@
+.guruh {
+  width: 100%;
+  padding: 50px;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  &_list {
+    display: flex;
+    border-bottom: 1px solid;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    padding-right: 64px;
+    color: #fff;
+    background: #2f49d1;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    cursor: pointer;
+
+    &_box {
+      height: 430px;
+      overflow-y: scroll;
+      box-shadow: 0px 1px 8px 0px rgba(34, 60, 80, 0.2);
+
+      &_btn {
+        width: 33px;
+        height: 26px;
+        border-radius: 5px;
+        background: #2f49d1;
+        border: none;
+        cursor: pointer;
+      }
+    }
+
+    &_right {
+      padding-left: 20px;
+    }
+
+    &_more {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-right: 10px;
+    }
+    &_text {
+      width: 100%;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    &_text2 {
+      width: 100%;
+      padding: 20px;
+      cursor: pointer;
+    }
+    &_text3 {
+      width: 100%;
+      padding: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &_list_item {
+    display: flex;
+    text-decoration: none;
+    border-bottom: 1px solid #c1bfbf;
+    justify-content: space-between;
+
+    &_box {
+      &_box {
+        padding: 20px;
+      }
+    }
+  }
+}
+
+.right {
+  padding-right: 28px;
+}

@@ -1,0 +1,86 @@
+.wrapper {
+  max-width: 1378px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  margin-top: 65px;
+
+  .vect_img {
+    width: 792px;
+    height: 500px;
+  }
+
+  .form {
+    width: 403px;
+    background: #f8f5f5;
+    border-radius: 39px;
+    padding: 20px 50px 20px 50px;
+
+    .logo {
+      width: 164px;
+      height: 107px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    .form_box {
+      .form_input {
+        width: 309px;
+        height: 40px;
+        border-radius: 16px;
+        border: 1px solid #c3bfbf;
+        background: #f8f5f5;
+        outline: none;
+        padding-left: 20px;
+        margin-bottom: 20px;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        &[type="number"] {
+          -moz-appearance: textfield;
+        }
+
+        ::placeholder {
+          color: #d2d0d0;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+
+      .form_text {
+        color: #cdcaca;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 400;
+        margin-bottom: 10px;
+        line-height: normal;
+      }
+
+      .form_btn {
+        width: 309px;
+        height: 40px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        border-radius: 10px;
+        background: #ba8d5b;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        cursor: pointer;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+      }
+    }
+  }
+}
