@@ -1,10 +1,10 @@
 .statistika_box {
-  width: 1060px;
-  height: 300px;
+  width: 100%;
+  height: 230px;
   background: #d9d9d9;
-  margin-left: 50px;
-  border-radius: 20px;
-  padding: 30px;
+  border-radius: 10px;
+  padding: 20px;
+  overflow: auto;
 
   &_heading {
     text-align: center;
@@ -15,4 +15,14 @@
     font-size: 17px;
     margin-top: 15px;
   }
+}
+
+.statistika_list {
+  display: flex;
+  gap: 70px;
+  margin-bottom: 30px;
+}
+
+.box_statik {
+  padding: 50px;
 }

@@ -3,8 +3,10 @@ import log from "../../img/photo.png";
 import home from "../../img/Home.svg";
 import teacher from "../../img/teacher.svg";
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function LayoutTeacher() {
+
   return (
     <>
       <div className="box_wrapper">
