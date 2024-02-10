@@ -1,30 +1,14 @@
-import "./GuruhTeacher.scss";
+// import "./Guruh.scss";
 import search from "../../img/search.svg";
 import { useNavigate } from "react-router-dom";
 import LayoutTeacher from "../LayoutTeacher/LayoutTeacher";
-import { useEffect, useState } from "react";
 
 function GuruhTeacher() {
-  const teacher = JSON.parse(localStorage.getItem("teacher"));
-  const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
   const today = new Date();
   const month = String(today.getMonth() + 1);
   const year = today.getFullYear();
   const date = String(today.getDate());
-  const [guruh, setGuruh] = useState([]);
-
-  useEffect(() => {
-    fetch(`http://localhost:2004/guruh/teacher/${teacher?._id}`, {
-      headers: {
-        authorization: token,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setGuruh(data?.guruh));
-  }, []);
-
-
 
   return (
     <>
@@ -56,39 +40,35 @@ function GuruhTeacher() {
                   placeholder="Guruh nomini kiriting"
                 />
               </div>
+              {/* <Modall /> */}
             </div>
             <div className="guruh">
               <div className="guruh_list">
-                <p className="teacher_guruh_text">№</p>
-                <p className="teacher_guruh_text">Guruh nomi</p>
-                <p className="teacher_guruh_text">Guruh raqami</p>
-                <p className="teacher_guruh_text">Dars kunlari</p>
+                <p className="guruh_list_text">№</p>
+                <p className="guruh_list_text2">Ustoz</p>
+                <p className="guruh_list_text3">Guruh raqami</p>
+                <p className="guruh_list_more">Dars kunlari</p>
               </div>
 
               <div className="guruh_list_box">
-                {guruh?.map((e, i) => {
-                  return (
-                    <div
-                      onClick={() => navigate("/groups/teacher/" + e._id)}
-                      className="guruh_list_item"
-                      style={{ cursor: "pointer" }}
-                      key={i + 1}
-                    >
-                      <div className="teacher_guruh_text">
-                        <p>{i + 1}</p>
-                      </div>
-                      <div className="teacher_guruh_text">
-                        <p>{e.title}</p>
-                      </div>
-                      <div className="teacher_guruh_text">
-                        <p>{e.sequence}</p>
-                      </div>
-                      <div className="teacher_guruh_text">
-                        <p>{e.kun}</p>
-                      </div>
-                    </div>
-                  );
-                })}
+                <div
+                  onClick={() => navigate("/groups/teacher/students")}
+                  className="guruh_list_item"
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="guruh_list_text">
+                    <p>1</p>
+                  </div>
+                  <div className="guruh_list_text2">
+                    <p>SHerzod</p>
+                  </div>
+                  <div className="guruh_list_text3">
+                    <p>n12</p>
+                  </div>
+                  <div className="guruh_list_more">
+                    <p>Du CHo Ju</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

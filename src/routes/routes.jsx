@@ -27,7 +27,7 @@ function Routers() {
       <Route path="/student/:id" element={<Onestudent />} />
       <Route path="/statistika" element={<Statistika />} />
       <Route path="/groups/teacher" element={<GuruhTeacher />} />
-      <Route path="/groups/teacher/:id" element={<OneTeacherStudent />} />
+      <Route path="/groups/teacher/students" element={<OneTeacherStudent />} />
       <Route path="/yunalish" element={<Yunalish />} />
       {/* <Route path="/*" element={<Error />} /> */}
     </Routes>

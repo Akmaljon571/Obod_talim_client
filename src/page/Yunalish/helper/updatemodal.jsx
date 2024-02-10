@@ -2,11 +2,13 @@ import "../Yunalish.scss";
 import React, { useRef, useState } from "react";
 import { Modal, message } from "antd";
 import updateImg from "../../../img/update.svg";
+import useMyHook from "../../../hooks/hooks";
 
 const Update = ({ id, title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const token = localStorage.getItem("token");
   const [messageApi, contextHolder] = message.useMessage();
+  const { yonalishCount, setYonalishCount } = useMyHook()
+  const token = localStorage.getItem("token");
   const yonalishRef = useRef();
 
   const YonalishUpdate = (id) => {
@@ -24,6 +26,7 @@ const Update = ({ id, title }) => {
       }),
     }).then((data) => {
       if (data.ok) {
+        setYonalishCount(yonalishCount + 1)
         messageApi.open({
           key,
           type: "success",

@@ -1,16 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from "antd";
 import { message } from "antd";
+import useMyHook from "../../../hooks/hooks";
 
 const Modall = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teacher, setTeacher] = useState([]);
+  const { groupCount, setGroupCount } = useMyHook()
   const token = localStorage.getItem("token");
   const squenseRef = useRef();
   const titleRef = useRef();
   const uqituvchiRef = useRef();
   const darskunRef = useRef();
   const darsvaqtRef = useRef();
+
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
@@ -20,7 +23,10 @@ const Modall = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => setTeacher(data));
+      .then((data) => {
+        setTeacher(data)
+        setGroupCount(groupCount + 1)
+      });
   }, []);
 
   const addGuruh = () => {
@@ -63,6 +69,11 @@ const Modall = () => {
               duration: 2,
             });
           }
+          squenseRef.current.value = ""
+          titleRef.current.value = ""
+          uqituvchiRef.current.value = ""
+          darskunRef.current.value = ""
+          darsvaqtRef.current.value = ""
         });
     } else {
       messageApi.open({
@@ -100,21 +111,21 @@ const Modall = () => {
       >
         <form className="modal_form">
           <label className="modal_form_bir">
-            Guruh raqami
-            <input
-              ref={squenseRef}
-              className="modal_form_inp"
-              type="text"
-              name="sequence"
-            />
-          </label>
-          <label className="modal_form_bir">
             Guruh nomi
             <input
               ref={titleRef}
               className="modal_form_inp"
               type="text"
               name="title"
+            />
+          </label>
+          <label className="modal_form_bir">
+            Guruh raqami
+            <input
+              ref={squenseRef}
+              className="modal_form_inp"
+              type="number"
+              name="sequence"
             />
           </label>
           <label className="modal_form_bir">

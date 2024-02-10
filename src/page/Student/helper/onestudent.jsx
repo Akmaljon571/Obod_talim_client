@@ -1,21 +1,21 @@
-import Layout from "../../Layout/Layout";
-import teacher from "../../../img/person.svg";
-import { message, Popconfirm } from "antd";
-import UpdateStudent from "../helper/updatemodal";
-import "./onestudent.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { message, Popconfirm } from "antd";
+import Layout from "../../Layout/Layout";
+import UpdateStudent from "../helper/updatemodal";
+import useMyHook from "../../../hooks/hooks";
+import { Header } from "../../../components";
+import { img_url } from "../../../context";
+import "./onestudent.scss";
 
 function Onestudent() {
-  const today = new Date();
-  const month = String(today.getMonth() + 1);
-  const year = today.getFullYear();
-  const [count, setCount] = useState(0);
   const [student, setStudent] = useState(0);
-  const date = String(today.getDate());
+  const [guruh, setGuruh] = useState('');
+  const { studentCount, setStudentCount } = useMyHook()
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const { id } = useParams();
+  const textRef = useRef()
 
   useEffect(() => {
     fetch("http://localhost:2004/student/one/" + id, {
@@ -24,11 +24,19 @@ function Onestudent() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setStudent(data));
-  }, [count]);
+      .then((data1) => {
+        setStudent(data1)
+        fetch("http://localhost:2004/guruh/all", {
+          headers: {
+            authorization: JSON.parse(token),
+          },
+        })
+          .then((res) => res.json())
+          .then(({ data }) => setGuruh(data.find(e => e._id == data1?.data?.guruh_id)?.title));
+      });
+  }, [studentCount]);
 
   const studentDelete = (id) => {
-    console.log(id);
     fetch("http://localhost:2004/student/delete/" + id, {
       method: "DELETE",
       headers: {
@@ -36,7 +44,7 @@ function Onestudent() {
       },
     }).then((data) => {
       if (data.ok) {
-        setCount(count + 1);
+        setStudentCount(studentCount + 1);
         navigate(-1);
       }
     });
@@ -50,26 +58,36 @@ function Onestudent() {
     message.error("Click on No");
   };
 
+  const send = () => {
+    const desc = textRef.current.value
+    fetch('http://localhost:2004/sms/send', {
+      method: "POST",
+      headers: {
+        authorization: JSON.parse(token),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        desc,
+        send_id: id,
+        status: 'student',
+      })
+    })
+    textRef.current.value = ''
+  }
+
   return (
     <>
       <div className="xisobot">
         <Layout />
         <div style={{ width: "100%" }}>
-          <div className="xisobot_box">
-            <h2 className="xisobot_box_h2">O‘qituvchi </h2>
-            <p className="xisobot_box_date">
-              {date.length === 1 ? "0" + date : date}.
-              {month.length === 1 ? "0" + month : month}.{year}
-            </p>
-            <button className="xisobot_box_btn">Log out</button>
-          </div>
+          <Header />
 
           <div className=" boxhalf">
             <div className="student_flex">
               <ul>
                 <li className="item">
                   <div className="half_box_inner innerflex">
-                    <img src={teacher} alt="person" width={170} />
+                    <img style={{ borderRadius: "20px" }} src={img_url + student?.data?.image} alt="person" width={150} />
                     <p className="textt">{student?.data?.username}</p>
                     <p className="textt">{student?.data?.familiya}</p>
                   </div>
@@ -116,6 +134,16 @@ function Onestudent() {
                           >
                             <p className="textt">JSHSHIR:</p>{" "}
                             <span>{student?.data?.jsh}</span>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "7px",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <p className="textt">Holati:</p>{" "}
+                            <span>{student?.data?.holati}</span>
                           </div>
                         </div>
                         <div>
@@ -168,7 +196,7 @@ function Onestudent() {
                             }}
                           >
                             <p className="textt">Guruh raqami:</p>{" "}
-                            <span>{student?.data?.guruh_id}</span>
+                            <span>{guruh}</span>
                           </div>
                         </div>
                       </div>
@@ -195,15 +223,15 @@ function Onestudent() {
               </ul>
             </div>
             <div className="onestudent_form">
-              <h4 className="onestudent_form_heading">
-                O’quvchiga xabar yuborish
-              </h4>
               <form>
                 <textarea
+                  placeholder="O’quvchiga xabar yuborish"
                   className="onestudent_form_inp"
                   name="text"
+                  ref={textRef}
+                  style={{ borderRadius: "20px" }}
                 ></textarea>
-                <button className="onestudent_form_btn">Send</button>
+                <button onClick={send} type="button" className="onestudent_form_btn">Send</button>
               </form>
             </div>
           </div>

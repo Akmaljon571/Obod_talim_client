@@ -17,8 +17,9 @@
     cursor: pointer;
 
     &_box {
-      height: 430px;
+      height: 470px;
       overflow-y: scroll;
+      border-radius: 0 0 15px 15px;
       box-shadow: 0px 1px 8px 0px rgba(34, 60, 80, 0.2);
 
       &_btn {
@@ -41,6 +42,7 @@
       gap: 10px;
       padding-right: 10px;
     }
+
     &_text {
       width: 100%;
       padding: 20px;
@@ -52,6 +54,7 @@
       padding: 20px;
       cursor: pointer;
     }
+
     &_text3 {
       width: 100%;
       padding: 20px;
@@ -64,6 +67,10 @@
     text-decoration: none;
     border-bottom: 1px solid #c1bfbf;
     justify-content: space-between;
+
+    &:hover {
+      background-color: #f3fcff8d;
+    }
 
     &_box {
       &_box {

@@ -4,15 +4,13 @@ import { Popconfirm, message } from "antd";
 import deletee from "../../img/delete.svg";
 import { useEffect, useRef, useState } from "react";
 import Update from "./helper/updatemodal";
+import { Header } from "../../components";
+import useMyHook from "../../hooks/hooks";
 
 function Yunalish() {
   const [messageApi, contextHolder] = message.useMessage();
-  const today = new Date();
-  const month = String(today.getMonth() + 1);
-  const year = today.getFullYear();
-  const date = String(today.getDate());
-  const [count, setCount] = useState(0);
-  const title = useRef("");
+  const { yonalishCount, setYonalishCount } = useMyHook()
+  const title = useRef();
   const token = localStorage.getItem("token");
 
   const [yonalish, setYonalish] = useState([]);
@@ -20,7 +18,7 @@ function Yunalish() {
     fetch("http://localhost:2004/yonalish/all")
       .then((res) => res.json())
       .then((data) => setYonalish(data));
-  }, [count]);
+  }, [yonalishCount]);
 
   const sent = (e) => {
     e.preventDefault();
@@ -39,7 +37,7 @@ function Yunalish() {
         }),
       }).then((data) => {
         if (data.ok) {
-          setCount(count + 1);
+          setYonalishCount(yonalishCount + 1);
           messageApi.open({
             key,
             type: "success",
@@ -60,7 +58,7 @@ function Yunalish() {
       },
     }).then((data) => {
       if (data.ok) {
-        setCount(count + 1);
+        setYonalishCount(yonalishCount + 1);
       }
     });
   };
@@ -77,14 +75,7 @@ function Yunalish() {
       <div className="xisobot">
         <Layout />
         <div style={{ width: "100%" }}>
-          <div className="xisobot_box">
-            <h2 className="xisobot_box_h2">Yunalishlar</h2>
-            <p className="xisobot_box_date">
-              {date.length === 1 ? "0" + date : date}.
-              {month.length === 1 ? "0" + month : month}.{year}
-            </p>
-            <button className="xisobot_box_btn">Log out</button>
-          </div>
+          <Header />
 
           <div className="yunalish">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -97,7 +88,7 @@ function Yunalish() {
                 <form style={{ padding: "20px" }}>
                   <p>Nomi</p>
                   <label>
-                    <input className="box_form_inp" type="text" ref={title} />
+                    <input placeholder="title..." className="box_form_inp" type="text" ref={title} />
                   </label>
                   <button onClick={sent} className="box_form_btn">
                     Qo'shish

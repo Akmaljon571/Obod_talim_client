@@ -16,6 +16,8 @@
   }
 }
 
+
+
 .textt {
   font-size: 18px;
   font-weight: 500;
@@ -24,6 +26,11 @@
 .half_box_inner {
   margin-bottom: 20px;
   text-align: center;
+
+  img {
+    border-radius: 20%;
+    margin-bottom: 20px;
+  }
 }
 
 .xisobot_flex_list_item_box_flex {
@@ -111,6 +118,14 @@
 .guruh_btn:hover {
   background: #0543a1;
 }
+
+// .guruh_btn:focus {
+//   background: #01265f;
+// }
+
+// .active {
+//   background: #01265f;
+// }
 
 .guruh_box4 {
   width: 770px;

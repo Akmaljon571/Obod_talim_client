@@ -1,14 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
 import { Modal, message } from "antd";
+import { useEffect, useRef, useState } from "react";
 import download from "../../../img/download.svg";
+import useMyHook from "../../../hooks/hooks";
 
 const Addmodal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fileContent, setFileContent] = useState("");
   const token = localStorage.getItem("token");
   const [messageApi, contextHolder] = message.useMessage();
-  const [count, setCount] = useState(0);
   const [guruh, setGuruh] = useState([]);
+  const { studentCount, setStudentCount } = useMyHook()
   const usernameRef = useRef();
   const familyaRef = useRef();
   const emailRef = useRef();
@@ -31,7 +32,7 @@ const Addmodal = () => {
     })
       .then((res) => res.json())
       .then((data) => setGuruh(data));
-  }, [count]);
+  }, [studentCount]);
 
   const sent = () => {
     const username = usernameRef.current.value;
@@ -86,13 +87,26 @@ const Addmodal = () => {
         body: formData,
       }).then((data) => {
         if (data.ok) {
-          setCount(count + 1);
+          setStudentCount(studentCount + 1);
           messageApi.open({
             key,
             type: "success",
             content: "Successfully",
             duration: 2,
           });
+
+          usernameRef.current.value = ''
+          familyaRef.current.value = ''
+          emailRef.current.value = ''
+          passwordRef.current.value = ''
+          kochaRef.current.value = ''
+          uyRef.current.value = ''
+          jshRef.current.value = ''
+          tugilgansanaRef.current.value = ''
+          otasiniismiRef.current.value = ''
+          guruhRaqamiRef.current.value = ''
+          jinsiRef.current.value = ''
+          raqamRef.current.value = ''
         } else {
           messageApi.open({
             key,

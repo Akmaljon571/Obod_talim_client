@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, message } from "antd";
 import update from "../../../img/update.svg";
+import useMyHook from "../../../hooks/hooks";
 
 const UpdateGuruh = (params) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const { groupCount, setGroupCount } = useMyHook()
   const token = localStorage.getItem("token");
   const [teacher, setTeacher] = useState([]);
   const [one, setOne] = useState([]);
@@ -50,29 +52,32 @@ const UpdateGuruh = (params) => {
         authorization: JSON.parse(token),
       },
       body: JSON.stringify({
-        title: title == "" ? one.title : title,
-        sequence: sequence == "" ? String(one.sequence) : sequence,
-        kun: kun == "" ? one.kun : kun,
-        soat: vaqt == "" ? one.soat : vaqt,
+        title,
+        sequence,
+        kun,
+        soat: vaqt,
         teacher_id: uqituvchi,
       }),
-    }).then((data) => {
-      if (data.ok) {
-        messageApi.open({
-          key,
-          type: "Muvaffaqiyatli",
-          content: "",
-          duration: 2,
-        });
-      } else {
-        messageApi.open({
-          key,
-          type: "error",
-          content: "Muvaffaqiyatsiz!",
-          duration: 2,
-        });
-      }
-    });
+    })
+      .then(re => re.json())
+      .then((data) => {
+        if (data.status == 200) {
+          setGroupCount(groupCount + 1)
+          messageApi.open({
+            key,
+            type: "success",
+            content: data.message,
+            duration: 2,
+          });
+        } else {
+          messageApi.open({
+            key,
+            type: "error",
+            content: "Muvaffaqiyatsiz!",
+            duration: 2,
+          });
+        }
+      });
   };
 
   const showModal = () => {
@@ -102,21 +107,21 @@ const UpdateGuruh = (params) => {
       >
         <form className="modal_form">
           <label className="modal_form_bir">
-            Guruh raqami
-            <input
-              className="modal_form_inp"
-              type="text"
-              ref={sequenceRef}
-              defaultValue={one?.sequence}
-            />
-          </label>
-          <label className="modal_form_bir">
             Guruh nomi
             <input
               className="modal_form_inp"
               type="text"
               ref={titleRef}
               defaultValue={one?.title}
+            />
+          </label>
+          <label className="modal_form_bir">
+            Guruh raqami
+            <input
+              className="modal_form_inp"
+              type="number"
+              ref={sequenceRef}
+              defaultValue={one?.sequence}
             />
           </label>
           <label className="modal_form_bir">

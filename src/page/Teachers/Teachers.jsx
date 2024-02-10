@@ -1,26 +1,19 @@
-import "./Teachers.scss";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import search from "../../img/search.svg";
-import person from "../../img/person.svg";
 import Modall from "./helper/Modal";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import useMyHook from "../../hooks/hooks";
+import Header from "../../components/header/header";
+import { img_url } from "../../context";
+import "./Teachers.scss";
 
 function Teachers() {
-  const today = new Date();
-  const month = String(today.getMonth() + 1);
-  const year = today.getFullYear();
-  const date = String(today.getDate());
   const navigate = useNavigate();
-  const [teacher, setTeacher] = useState([]);
   const token = localStorage.getItem("token");
-  const [count, setCount] = useState(0);
-  const [yonalish, setYonalish] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:2004/yonalish/all")
-      .then((res) => res.json())
-      .then((data) => setYonalish(data));
-  }, []);
+  const [teacher, setTeacher] = useState([]);
+  const [teacherAll, setTeacherAll] = useState([]);
+  const { teacherCount } = useMyHook()
 
   useEffect(() => {
     fetch("http://localhost:2004/teacher/all", {
@@ -29,23 +22,27 @@ function Teachers() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setTeacher(data));
-  }, [count]);
+      .then((data) => {
+        setTeacher(data)
+        setTeacherAll(data)
+      });
+  }, [teacherCount]);
+
+  const searchFN = (e) => {
+    const text = e.target.value
+    if (text) {
+      setTeacher({ data: teacherAll.data.filter(e => e.username.toLowerCase().includes(text.toLowerCase())) })
+    } else {
+      setTeacher(teacherAll)
+    }
+  }
 
   return (
     <>
       <div className="xisobot">
-        <Layout name={count} />
+        <Layout />
         <div style={{ width: "100%" }}>
-          <div className="xisobot_box">
-            <h2 className="xisobot_box_h2">O‘qituvchilar</h2>
-            <p className="xisobot_box_date">
-              {date.length === 1 ? "0" + date : date}.
-              {month.length === 1 ? "0" + month : month}.{year}
-            </p>
-            <button className="xisobot_box_btn">Log out</button>
-          </div>
-
+          <Header />
           <div>
             <div className="xisobot_flex">
               <h3 className="xisobot_flex_heading">Mavjud O'qituvchilar</h3>
@@ -55,13 +52,13 @@ function Teachers() {
                   src={search}
                   alt="search"
                 />
-                <input className="xisobot_flex_inp" type="text" name="search" />
+                <input onChange={searchFN} className="xisobot_flex_inp" type="text" name="search" />
               </div>
               <Modall />
             </div>
 
             <ul className="xisobot_flex_list">
-              {teacher.length &&
+              {teacher?.data?.length ?
                 teacher?.data?.map((e, i) => {
                   return (
                     <li
@@ -75,7 +72,7 @@ function Teachers() {
                           {e.username} {e.familiya}
                         </p>
                         <div style={{ padding: "20px" }}>
-                          <img src={person} width={120} alt="person" />
+                          <img src={img_url + e.image} width={120} alt="person" />
                           <div
                             style={{
                               display: "flex",
@@ -140,7 +137,7 @@ function Teachers() {
                       </div>
                     </li>
                   );
-                })}
+                }) : null}
             </ul>
           </div>
         </div>
