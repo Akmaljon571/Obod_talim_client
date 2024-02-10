@@ -39,6 +39,13 @@ function Login() {
           if (data.status === 200) {
             setStep(2);
             localStorage.setItem("data", JSON.stringify(data.data));
+          } else {
+            messageApi.open({
+              key: "1",
+              type: "error",
+              content: "Not Found",
+              duration: 2,
+            });
           }
         });
     } else {
@@ -54,7 +61,7 @@ function Login() {
   const sendCode = (e) => {
     const data = JSON.parse(localStorage.getItem("data"));
     const codeee = codeeRef.current.value;
-    if (data.code === codeee && data.status === "admin") {
+    if (data.code === codeee) {
       messageApi.open({
         key: "",
         type: "loading",
@@ -73,29 +80,6 @@ function Login() {
           if (data.status === 200) {
             localStorage.setItem("token", JSON.stringify(data.token));
             navigate("/xisobot");
-          }
-        })
-        .catch(console.log);
-    } else if (data.code === codeee && data.status === "teacher") {
-      messageApi.open({
-        key: "",
-        type: "loading",
-        content: "Loading...",
-        duration: 2,
-      });
-      fetch("http://localhost:2004/admin/login/code", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((re) => re.json())
-        .then((data) => {
-          if (data.status === 200) {
-            localStorage.setItem("teacher", JSON.stringify(data.find));
-            localStorage.setItem("token", JSON.stringify(data.token));
-            navigate("/statistika");
           }
         })
         .catch(console.log);

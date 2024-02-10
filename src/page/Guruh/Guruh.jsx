@@ -1,21 +1,20 @@
-import "./Guruh.scss";
+import { message, Popconfirm } from "antd";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "../Layout/Layout";
 import deletee from "../../img/delete.svg";
 import search from "../../img/search.svg";
-import { message, Popconfirm } from "antd";
-import { useNavigate } from "react-router-dom";
 import Modall from "./helper/modal";
 import UpdateGuruh from "./helper/updatemodal";
-import { useEffect, useState } from "react";
+import { Header } from "../../components";
+import useMyHook from "../../hooks/hooks";
+import "./Guruh.scss";
 
 function Guruh() {
   const navigate = useNavigate();
-  const today = new Date();
-  const month = String(today.getMonth() + 1);
-  const year = today.getFullYear();
-  const date = String(today.getDate());
   const [guruh, setGuruh] = useState([]);
-  const [count, setCount] = useState(0);
+  const [searchData, setSearchData] = useState([]);
+  const { groupCount, setGroupCount } = useMyHook()
   const token = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
@@ -25,8 +24,20 @@ function Guruh() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setGuruh(data));
-  }, [count]);
+      .then((data) => {
+        setGuruh(data)
+        setSearchData(data)
+      });
+  }, [groupCount]);
+
+  const searchFn = (e) => {
+    const text = e.target.value
+    if (text) {
+      setGuruh({ data: searchData.data.filter(e => e.title.toLowerCase().includes(text.toLowerCase())) })
+    } else {
+      setGuruh(searchData)
+    }
+  }
 
   const deleteGuruh = (id) => {
     fetch("http://localhost:2004/guruh/delete/" + id, {
@@ -36,7 +47,7 @@ function Guruh() {
       },
     }).then((data) => {
       if (data.ok) {
-        setCount(count + 1);
+        setGroupCount(groupCount + 1)
       }
     });
   };
@@ -54,14 +65,7 @@ function Guruh() {
       <div className="xisobot">
         <Layout />
         <div style={{ width: "100%" }}>
-          <div className="xisobot_box">
-            <h2 className="xisobot_box_h2">Guruhlar</h2>
-            <p className="xisobot_box_date">
-              {date.length === 1 ? "0" + date : date}.
-              {month.length === 1 ? "0" + month : month}.{year}
-            </p>
-            <button className="xisobot_box_btn">Log out</button>
-          </div>
+          <Header />
 
           <div>
             <div className="xisobot_flex">
@@ -75,6 +79,7 @@ function Guruh() {
                 <input
                   className="xisobot_flex_inp"
                   type="text"
+                  onChange={searchFn}
                   name="search"
                   placeholder="Guruh nomini kiriting"
                 />
@@ -121,7 +126,7 @@ function Guruh() {
                           okText="Yes"
                           cancelText="No"
                         >
-                          <button className="guruh_list_box_btn">
+                          <button style={{ paddingTop: "3px" }} className="guruh_list_box_btn">
                             <img src={deletee} alt="delete" />
                           </button>
                         </Popconfirm>

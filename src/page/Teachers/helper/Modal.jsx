@@ -1,13 +1,14 @@
-import "./Modal.scss";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal, message } from "antd";
 import download from "../../../img/download.svg";
+import useMyHook from "../../../hooks/hooks";
+import "./Modal.scss";
 
 const Modall = () => {
   const [messageApi, contextHolder] = message.useMessage();
-  const [count, setCount] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [yonalish, setYonalish] = useState([]);
+  const { teacherCount, setTeacherCount } = useMyHook()
   const usernameRef = useRef();
   const familyaRef = useRef();
   const emailRef = useRef();
@@ -29,7 +30,7 @@ const Modall = () => {
     fetch("http://localhost:2004/yonalish/all")
       .then((res) => res.json())
       .then((data) => setYonalish(data));
-  }, [count]);
+  }, []);
 
   const sent = () => {
     const username = usernameRef.current.value;
@@ -84,7 +85,7 @@ const Modall = () => {
         body: formData,
       }).then((data) => {
         if (data.ok) {
-          setCount(count + 1);
+          setTeacherCount(teacherCount + 1)
           messageApi.open({
             key,
             type: "success",

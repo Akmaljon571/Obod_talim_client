@@ -2,15 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { Modal, message } from "antd";
 import download from "../../../img/download.svg";
 import { useParams } from "react-router-dom";
+import useMyHook from "../../../hooks/hooks";
 
 const UpdateStudent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fileContent, setFileContent] = useState("");
-  const token = JSON.parse(localStorage.getItem("token"));
   const [messageApi, contextHolder] = message.useMessage();
   const [guruh, setGuruh] = useState([]);
-  const [count, setCount] = useState(0);
   const [student, setStudent] = useState([]);
+  const { studentCount, setStudentCount } = useMyHook()
+  const token = JSON.parse(localStorage.getItem("token"));
   const usernameRef = useRef();
   const familyaRef = useRef();
   const emailRef = useRef();
@@ -23,7 +24,6 @@ const UpdateStudent = () => {
   const guruhRaqamiRef = useRef();
   const jinsiRef = useRef();
   const raqamRef = useRef();
-  const holateRef = useRef();
   const { id } = useParams();
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const UpdateStudent = () => {
     })
       .then((res) => res.json())
       .then((data) => setStudent(data));
-  }, [count]);
+  }, [studentCount]);
 
   const studentUpdate = (id) => {
     const username = usernameRef.current.value;
@@ -58,7 +58,6 @@ const UpdateStudent = () => {
     const otasiniismi = otasiniismiRef.current.value;
     const guruhraqami = guruhRaqamiRef.current.value;
     const jinsi = jinsiRef.current.value;
-    const holati = holateRef.current.value;
     const raqam = String(raqamRef.current.value);
     const key = "update";
 
@@ -74,8 +73,9 @@ const UpdateStudent = () => {
     formData.append("jinsi", Boolean(jinsi));
     formData.append("raqam", raqam);
     formData.append("guruh_id", String(guruhraqami));
-    formData.append("image", img);
-    formData.append("holati", holati);
+    if (img) {
+      formData.append("image", img);
+    }
     fetch("http://localhost:2004/student/update/" + id, {
       method: "PATCH",
       headers: {
@@ -84,7 +84,7 @@ const UpdateStudent = () => {
       body: formData,
     }).then((data) => {
       if (data.ok) {
-        setCount(count + 1);
+        setStudentCount(studentCount + 1);
         messageApi.open({
           key,
           type: "success",
@@ -267,23 +267,10 @@ const UpdateStudent = () => {
                 type="file"
                 name="file"
                 ref={imageRef}
-                // defaultValue={student?.data?.image}
+              // defaultValue={student?.data?.image}
               />
             </label>
           </div>
-          <label className="modal_form_bir">
-            Holati
-            <select
-              className="modal_form_inp"
-              name="holati"
-              ref={holateRef}
-              defaultValue={student?.data?.holati}
-            >
-              <option value="oqimoqda">O’qimoqda</option>
-              <option value="ketgan">Ketti</option>
-              <option value="tamomladi">Tamomladi</option>
-            </select>
-          </label>
         </form>
       </Modal>
     </>

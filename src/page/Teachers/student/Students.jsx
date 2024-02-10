@@ -1,22 +1,22 @@
 import "./Students.scss";
 import Layout from "../../Layout/Layout";
-import teacher from "../../../img/person.svg";
 import { message, Popconfirm } from "antd";
 import UpdateModal from "../updatemodal/UpdateModal";
 import Table from "./Table";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { img_url } from "../../../context";
+import Header from "../../../components/header/header";
 
 function TeachersStudents() {
-  const today = new Date();
-  const month = String(today.getMonth() + 1);
-  const year = today.getFullYear();
-  const date = String(today.getDate());
   const token = localStorage.getItem("token");
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
+  const [yonalish, setYonalish] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
   const key = "delete";
+  const [one, setOne] = useState([]);
+  const { id } = useParams();
 
   const teacherDelete = (id) => {
     fetch("http://localhost:2004/teacher/delete/" + id, {
@@ -39,9 +39,6 @@ function TeachersStudents() {
     });
   };
 
-  const [one, setOne] = useState([]);
-  const [student, setStudent] = useState([]);
-  const { id } = useParams();
   useEffect(() => {
     fetch(`http://localhost:2004/teacher/one/${id}`, {
       headers: {
@@ -49,17 +46,19 @@ function TeachersStudents() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setOne(data));
-  }, []);
-
-  useEffect(() => {
-    fetch(`http://localhost:2004/guruh/teacher/${id}`, {
-      headers: {
-        authorization: JSON.parse(token),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setStudent(data));
+      .then((data) => {
+        fetch(`http://localhost:2004/yonalish/all`, {
+          headers: {
+            authorization: JSON.parse(token),
+          },
+        })
+          .then((res) => res.json())
+          .then((yonalish) => {
+            const a = yonalish.data.find(e => e._id == data.yonalish_id).title
+            setYonalish(a)
+          });
+        setOne(data)
+      });
   }, []);
 
   const confirm = (id) => {
@@ -76,21 +75,13 @@ function TeachersStudents() {
       <div className="xisobot">
         <Layout />
         <div style={{ width: "100%" }}>
-          <div className="xisobot_box">
-            <h2 className="xisobot_box_h2">O‘qituvchi </h2>
-            <p className="xisobot_box_date">
-              {date.length === 1 ? "0" + date : date}.
-              {month.length === 1 ? "0" + month : month}.{year}
-            </p>
-            <button className="xisobot_box_btn">Log out</button>
-          </div>
-
+          <Header />
           <div className="half">
             <div className="half_box">
               <ul className="half_box_flextable">
                 <li className="item">
                   <div className="half_box_inner">
-                    <img src={teacher} alt="person" width={130} />
+                    <img src={img_url + one.image} alt="person" width={130} />
                     <p className="textt">{one.username}</p>
                     <p className="textt">{one.familiya}</p>
                   </div>
@@ -194,7 +185,7 @@ function TeachersStudents() {
                         }}
                       >
                         <p className="textt">Yo’nalishi:</p>{" "}
-                        <span>{one.yonalish_id}</span>
+                        <span>{yonalish}</span>
                       </div>
                       <div className="xisobot_flex_list_item_box_flex">
                         <UpdateModal />

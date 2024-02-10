@@ -21,6 +21,7 @@
     &_img {
       position: absolute;
       left: 10px;
+      border-radius: 50%;
     }
   }
 
@@ -55,7 +56,7 @@
 
     &_item {
       // width: 320px;
-      // height: 348px;
+      height: 430px;
       border-radius: 16px;
       background: #fff;
       border-top-right-radius: 20px;
@@ -83,6 +84,21 @@
       }
     }
   }
+}
+
+.xisobot_flex_list_item_box {
+  img {
+    border-radius: 10%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+}
+
+.xisobot_flex_list_item_box_text {
+  height: 60px;
+  padding-top: 20px;
+  font-size: 22px;
+  padding: 20px;
 }
 
 ::-webkit-scrollbar {

@@ -1,12 +1,18 @@
 import { useContext } from "react";
-import { State } from "../content/companent";
+import { State } from "../context/index";
 
-function useComponent() {
-  const { count, setCount } = useContext(State);
+function useMyHook() {
+  const { teacherCount, setTeacherCount, groupCount, setGroupCount, yonalishCount, setYonalishCount, studentCount, setStudentCount } = useContext(State);
   return {
-    count,
-    setCount,
+    teacherCount,
+    setTeacherCount,
+    groupCount,
+    setGroupCount,
+    yonalishCount,
+    setYonalishCount,
+    studentCount,
+    setStudentCount
   };
 }
 
-export default useComponent;
+export default useMyHook;

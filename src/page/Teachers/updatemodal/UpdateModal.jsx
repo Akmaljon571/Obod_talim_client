@@ -1,14 +1,14 @@
 // import "./Modal.scss";
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, message } from "antd";
-import download from "../../../img/download.svg";
 import { useParams } from "react-router-dom";
+import download from "../../../img/download.svg";
 
 const UpdateModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const token = localStorage.getItem("token");
   const [messageApi, contextHolder] = message.useMessage();
-  const [yonalish, setYonalish] = useState([]);
+  const [yonalishData, setYonalish] = useState([]);
   const [count, setCount] = useState(0);
   const key = "delete";
   const { id } = useParams();
@@ -36,7 +36,7 @@ const UpdateModal = () => {
     })
       .then((res) => res.json())
       .then((data) => setOne(data));
-  }, []);
+  }, [count]);
 
   useEffect(() => {
     fetch("http://localhost:2004/yonalish/all")
@@ -63,9 +63,11 @@ const UpdateModal = () => {
     const formData = new FormData();
     formData.append("username", username == "" ? one.username : username);
     formData.append("familiya", familya == "" ? one.familiya : familya);
-    formData.append("email", email == "" ? one.email : username);
+    formData.append("email", email == "" ? one.email : email);
     formData.append("password", password == "" ? one.password : password);
-    formData.append("image", img);
+    if (img) {
+      formData.append("image", img);
+    }
     formData.append("kocha", kocha == "" ? one.kocha : kocha);
     formData.append("uy", uy == "" ? one.uy : uy);
     formData.append("jsh", jsh == "" ? one.jsh : jsh);
@@ -83,24 +85,24 @@ const UpdateModal = () => {
       body: formData,
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
-    // if (data.ok) {
-    //   messageApi.open({
-    //     key,
-    //     type: "success",
-    //     content: "Loaded!",
-    //     duration: 2,
-    //   });
-    // } else {
-    //   messageApi.open({
-    //     key,
-    //     type: "error",
-    //     content: "Loaded!",
-    //     duration: 2,
-    //   });
-    // }
-    // });
-
+      .then((data) => {
+        if (data.status == 200) {
+          messageApi.open({
+            key,
+            type: "success",
+            content: "Loaded!",
+            duration: 2,
+          });
+          window.location.reload(true)
+        } else {
+          messageApi.open({
+            key,
+            type: "error",
+            content: "Loaded!",
+            duration: 2,
+          });
+        }
+      });
   };
 
   const showModal = () => {
@@ -152,7 +154,7 @@ const UpdateModal = () => {
               type="text"
               name="password"
               ref={passwordRef}
-              // defaultValue={one?.password}
+            // defaultValue={one?.password}
             />
           </label>
           <label className="modal_form_bir">
@@ -256,7 +258,7 @@ const UpdateModal = () => {
           <label className="modal_form_bir">
             Ta’lim berayotgan yo’nalishi
             <select className="modal_form_inp" ref={yonalishidRef} >
-              {yonalish?.data?.map((e) => {
+              {yonalishData?.data?.map((e) => {
                 return (
                   <option key={e._id} value={e._id}>
                     {e.title}

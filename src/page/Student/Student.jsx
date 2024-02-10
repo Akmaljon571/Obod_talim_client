@@ -1,18 +1,18 @@
-import "./Student.scss";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import search from "../../img/search.svg";
 import Addmodal from "./helper/modal";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Header } from "../../components";
+import useMyHook from "../../hooks/hooks";
+import "./Student.scss";
 
 function Student() {
   const token = JSON.parse(localStorage.getItem("token"));
-  const today = new Date();
-  const month = String(today.getMonth() + 1);
-  const year = today.getFullYear();
-  const date = String(today.getDate());
   const navigate = useNavigate();
-  const [student, setStudent] = useState([]);
+  const [student, setStudent] = useState({});
+  const [studentAll, setStudentAll] = useState({});
+  const { studentCount } = useMyHook()
 
   useEffect(() => {
     fetch(`http://localhost:2004/student/all`, {
@@ -21,22 +21,27 @@ function Student() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setStudent(data));
-  }, []);
+      .then((data) => {
+        setStudent(data)
+        setStudentAll(data)
+      });
+  }, [studentCount]);
+
+  const searchFN = (e) => {
+    const text = e.target.value.toLowerCase()
+    if (text) {
+      setStudent({ data: studentAll.data.filter(e => e.username.toLowerCase().includes(text)) })
+    } else {
+      setStudent(studentAll)
+    }
+  }
 
   return (
     <>
       <div className="xisobot">
         <Layout />
         <div style={{ width: "100%" }}>
-          <div className="xisobot_box">
-            <h2 className="xisobot_box_h2">O‘quvchilar</h2>
-            <p className="xisobot_box_date">
-              {date.length === 1 ? "0" + date : date}.
-              {month.length === 1 ? "0" + month : month}.{year}
-            </p>
-            <button className="xisobot_box_btn">Log out</button>
-          </div>
+          <Header />
 
           <div>
             <div className="xisobot_flex">
@@ -47,7 +52,7 @@ function Student() {
                   src={search}
                   alt="search"
                 />
-                <input className="xisobot_flex_inp" type="text" name="search" />
+                <input onChange={searchFN} className="xisobot_flex_inp" type="text" name="search" />
               </div>
               <Addmodal />
             </div>

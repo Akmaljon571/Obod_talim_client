@@ -31,7 +31,8 @@
   }
 
   &_box1 {
-    height: 478px;
+    height: 530px;
+    border-radius: 0 0 20px 20px;
     box-shadow: 0px 1px 8px 0px rgba(34, 60, 80, 0.2);
 
     &_box {
@@ -63,21 +64,24 @@
 }
 
 .xisobot_flex_list_item2 {
-  height: 348px;
+  height: 408px;
   border-radius: 16px;
   background: #fff;
   border-top-right-radius: 20px;
   margin-bottom: 20px;
   box-shadow: 0px 1px 8px 0px rgba(34, 60, 80, 0.2);
   cursor: pointer;
+
+  img {
+    border-radius: 20%;
+  }
 }
 
 .box2 {
-  height: 170px;
-  overflow: scroll;
+  height: 160px;
   background: #fff;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
+  border-radius: 20px;
+  border: none !important;
   margin-bottom: 20px;
   box-shadow: 0px 1px 8px 0px rgba(34, 60, 80, 0.2);
   cursor: pointer;
@@ -102,7 +106,6 @@
 }
 
 .box_guruh {
-  border-bottom: 1px solid;
   padding: 14px;
   margin-top: 10px;
 }

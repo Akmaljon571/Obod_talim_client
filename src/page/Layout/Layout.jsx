@@ -1,10 +1,11 @@
-import "./Layout.scss";
+import { NavLink } from "react-router-dom";
+import { MenuUnfoldOutlined } from "@ant-design/icons";
 import log from "../../img/photo.png";
 import home from "../../img/Home.svg";
 import student from "../../img/student.svg";
 import teacher from "../../img/teacher.svg";
 import teacher2 from "../../img/o'qituvchilar.png";
-import { NavLink } from "react-router-dom";
+import "./Layout.scss";
 
 function Layout() {
   return (
@@ -76,13 +77,7 @@ function Layout() {
                 : "box_wrapper_list_item_noactive"
             }
           >
-            <img
-              className="box_wrapper_list_item_img"
-              src={teacher2}
-              alt="home"
-              width={25}
-              height={25}
-            />
+            <MenuUnfoldOutlined style={{ color: "white", fontSize: "24px" }} />
             <p className="box_wrapper_list_item_text">Yunalishlar</p>
           </NavLink>
         </ul>

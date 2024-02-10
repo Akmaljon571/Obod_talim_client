@@ -1,14 +1,12 @@
-import "./oneguruh.scss";
-import Layout from "../../Layout/Layout";
-import person from "../../../img/person.svg";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Layout from "../../Layout/Layout";
+import person from "../../../img/person.svg";
+import "./oneguruh.scss";
+import { Header } from "../../../components";
+import { img_url } from "../../../context";
 
 function Oneguruh() {
-  const today = new Date();
-  const month = String(today.getMonth() + 1);
-  const year = today.getFullYear();
-  const date = String(today.getDate());
   const [teacher, setTeacher] = useState([]);
   const [guruh, setGuruh] = useState([]);
   const [student, setStudent] = useState([]);
@@ -24,7 +22,6 @@ function Oneguruh() {
       .then((res) => res.json())
       .then((data) => setGuruh(data));
   }, []);
-  console.log(guruh.teacher_id);
 
   useEffect(() => {
     fetch(`http://localhost:2004/guruh/teacher/${guruh.teacher_id}`, {
@@ -51,15 +48,7 @@ function Oneguruh() {
       <div className="xisobot">
         <Layout />
         <div style={{ width: "100%" }}>
-          <div className="xisobot_box">
-            <h2 className="xisobot_box_h2">Guruhlar</h2>
-            <p className="xisobot_box_date">
-              {date.length === 1 ? "0" + date : date}.
-              {month.length === 1 ? "0" + month : month}.{year}
-            </p>
-            <button className="xisobot_box_btn">Log out</button>
-          </div>
-
+          <Header />
           <div className="oneguruh">
             <div>
               {teacher?.teacher?.map((e, i) => {
@@ -70,7 +59,7 @@ function Oneguruh() {
                         {e.username} {e.familiya}
                       </p>
                       <div style={{ padding: "15px" }}>
-                        <img src={person} width={130} alt="person" />
+                        <img src={img_url + e.image} width={130} alt="person" />
                         <div
                           style={{
                             display: "flex",
