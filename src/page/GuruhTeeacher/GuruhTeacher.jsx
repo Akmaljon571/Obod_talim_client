@@ -82,7 +82,7 @@ function GuruhTeacher() {
                 <p className="guruh_list_text3">Dars kunlari</p>
               </div>
 
-              <div className="guruh_list_box">
+              <div className="guruh_list_box" style={{ height: "415px" }}>
                 {guruh?.map((e, i) => {
                   return (
                     <div

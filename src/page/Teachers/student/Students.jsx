@@ -54,7 +54,7 @@ function TeachersStudents() {
         })
           .then((res) => res.json())
           .then((yonalish) => {
-            const a = yonalish.data.find(e => e._id == data.yonalish_id).title
+            const a = yonalish?.data.find(e => e._id == data.yonalish_id).title
             setYonalish(a)
           });
         setOne(data)
@@ -81,7 +81,7 @@ function TeachersStudents() {
               <ul className="half_box_flextable">
                 <li className="item">
                   <div className="half_box_inner">
-                    <img src={img_url + one.image} alt="person" width={130} />
+                    <img src={img_url + one.image} alt="person" width={120} />
                     <p className="textt">{one.username}</p>
                     <p className="textt">{one.familiya}</p>
                   </div>

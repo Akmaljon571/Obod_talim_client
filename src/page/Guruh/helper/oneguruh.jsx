@@ -53,13 +53,20 @@ function Oneguruh() {
             <div>
               {teacher?.teacher?.map((e, i) => {
                 return (
-                  <li key={i} className="xisobot_flex_list_item2">
-                    <div className="xisobot_flex_list_item_box">
+                  <li
+                    key={i}
+                    className="xisobot_flex_list_item2"
+                    style={{ height: "533px" }}
+                  >
+                    <div
+                      className="xisobot_flex_list_item_box"
+                      style={{ borderBottom: "1px solid" }}
+                    >
                       <p className="xisobot_flex_list_item_box_text">
                         {e.username} {e.familiya}
                       </p>
                       <div style={{ padding: "15px" }}>
-                        <img src={img_url + e.image} width={130} alt="person" />
+                        <img src={img_url + e.image} width={120} alt="person" />
                         <div
                           style={{
                             display: "flex",
@@ -111,11 +118,54 @@ function Oneguruh() {
                         </div>
                       </div>
                     </div>
+                    {/* // */}
+                    <div className="box_guruh" key={guruh._id}>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "7px",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <p className="textt">Guruh nomi</p>{" "}
+                        <span>{guruh.title}</span>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "7px",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <p className="textt">Ustoz</p>{" "}
+                        <span>{guruh.teacher_id}</span>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "7px",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <p className="textt">Dars kunlari</p>{" "}
+                        <span>{guruh.kun}</span>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "7px",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <p className="textt">Dars vaqti</p>{" "}
+                        <span>{guruh.soat} </span>
+                      </div>
+                    </div>
                   </li>
                 );
               })}
 
-              <div className="xisobot_flex_list_item_box box2">
+              {/* <div className="xisobot_flex_list_item_box box2">
                 <div className="box_guruh" key={guruh._id}>
                   <div
                     style={{
@@ -158,7 +208,7 @@ function Oneguruh() {
                     <span>{guruh.soat} </span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="one_guruh">
               <div className="one_guruh_box">

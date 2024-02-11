@@ -52,7 +52,7 @@ function Student() {
                   src={search}
                   alt="search"
                 />
-                <input onChange={searchFN} className="xisobot_flex_inp" type="text" name="search" />
+                <input onChange={searchFN} className="xisobot_flex_inp" type="text" name="search" placeholder="Serach"/>
               </div>
               <Addmodal />
             </div>

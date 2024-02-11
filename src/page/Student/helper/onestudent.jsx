@@ -10,12 +10,12 @@ import "./onestudent.scss";
 
 function Onestudent() {
   const [student, setStudent] = useState(0);
-  const [guruh, setGuruh] = useState('');
-  const { studentCount, setStudentCount } = useMyHook()
+  const [guruh, setGuruh] = useState("");
+  const { studentCount, setStudentCount } = useMyHook();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const { id } = useParams();
-  const textRef = useRef()
+  const textRef = useRef();
 
   useEffect(() => {
     fetch("http://localhost:2004/student/one/" + id, {
@@ -25,14 +25,16 @@ function Onestudent() {
     })
       .then((res) => res.json())
       .then((data1) => {
-        setStudent(data1)
+        setStudent(data1);
         fetch("http://localhost:2004/guruh/all", {
           headers: {
             authorization: JSON.parse(token),
           },
         })
           .then((res) => res.json())
-          .then(({ data }) => setGuruh(data.find(e => e._id == data1?.data?.guruh_id)?.title));
+          .then(({ data }) =>
+            setGuruh(data.find((e) => e._id == data1?.data?.guruh_id)?.title)
+          );
       });
   }, [studentCount]);
 
@@ -59,8 +61,8 @@ function Onestudent() {
   };
 
   const send = () => {
-    const desc = textRef.current.value
-    fetch('http://localhost:2004/sms/send', {
+    const desc = textRef.current.value;
+    fetch("http://localhost:2004/sms/send", {
       method: "POST",
       headers: {
         authorization: JSON.parse(token),
@@ -69,11 +71,11 @@ function Onestudent() {
       body: JSON.stringify({
         desc,
         send_id: id,
-        status: 'student',
-      })
-    })
-    textRef.current.value = ''
-  }
+        status: "student",
+      }),
+    });
+    textRef.current.value = "";
+  };
 
   return (
     <>
@@ -87,9 +89,14 @@ function Onestudent() {
               <ul>
                 <li className="item">
                   <div className="half_box_inner innerflex">
-                    <img style={{ borderRadius: "20px" }} src={img_url + student?.data?.image} alt="person" width={150} />
-                    <p className="textt">{student?.data?.username}</p>
-                    <p className="textt">{student?.data?.familiya}</p>
+                    <img
+                      style={{ borderRadius: "20px" }}
+                      src={img_url + student?.data?.image}
+                      alt="person"
+                      width={120}
+                    />
+                      <p className="textt">{student?.data?.username}</p>
+                      <p className="textt">{student?.data?.familiya}</p>
                   </div>
                   <div className="xisobot_flex_list_item_box">
                     <div style={{ paddingLeft: "15px", paddingRight: "15px" }}>
@@ -165,7 +172,9 @@ function Onestudent() {
                             }}
                           >
                             <p className="textt">Jinsi:</p>{" "}
-                            <span>{student?.data?.jinsi === true ? "Erkak" : "Ayol"}</span>
+                            <span>
+                              {student?.data?.jinsi === true ? "Erkak" : "Ayol"}
+                            </span>
                           </div>
                           <div
                             style={{
@@ -231,7 +240,13 @@ function Onestudent() {
                   ref={textRef}
                   style={{ borderRadius: "20px" }}
                 ></textarea>
-                <button onClick={send} type="button" className="onestudent_form_btn">Send</button>
+                <button
+                  onClick={send}
+                  type="button"
+                  className="onestudent_form_btn"
+                >
+                  Send
+                </button>
               </form>
             </div>
           </div>

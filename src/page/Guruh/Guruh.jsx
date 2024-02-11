@@ -96,7 +96,7 @@ function Guruh() {
                 <p className="guruh_list_more guruh_list_right right">More</p>
               </div>
 
-              <div className="guruh_list_box">
+              <div className="guruh_list_box" style={{height: "400px"}}>
                 {guruh?.data?.map((e, i) => {
                   return (
                     <div key={i} className="guruh_list_item">

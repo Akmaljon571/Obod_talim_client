@@ -43,13 +43,12 @@
   &_list {
     display: flex;
     padding: 30px;
-    justify-content: space-between;
     padding-left: 50px;
     flex-wrap: wrap;
     gap: 50px;
 
     &_item {
-      width: 500px;
+      width: 44%;
       height: 231px;
       border-radius: 23px;
       background: #fff;

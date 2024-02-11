@@ -1,4 +1,3 @@
-// import "./Modal.scss";
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, message } from "antd";
 import { useParams } from "react-router-dom";
@@ -9,7 +8,6 @@ const UpdateModal = () => {
   const token = localStorage.getItem("token");
   const [messageApi, contextHolder] = message.useMessage();
   const [yonalishData, setYonalish] = useState([]);
-  const [count, setCount] = useState(0);
   const key = "delete";
   const { id } = useParams();
   const usernameRef = useRef();
@@ -36,7 +34,7 @@ const UpdateModal = () => {
     })
       .then((res) => res.json())
       .then((data) => setOne(data));
-  }, [count]);
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:2004/yonalish/all")
@@ -90,7 +88,7 @@ const UpdateModal = () => {
           messageApi.open({
             key,
             type: "success",
-            content: "Loaded!",
+            content: "Muvaffaqiyatli",
             duration: 2,
           });
           window.location.reload(true)
