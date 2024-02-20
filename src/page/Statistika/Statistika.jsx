@@ -47,7 +47,7 @@ function Statistika() {
         <LayoutTeacher />
         <div style={{ width: "100%" }}>
           <div className="xisobot_box">
-            <h2 className="xisobot_box_h2">Xisobot</h2>
+            <h2 className="xisobot_box_h2">Statistika</h2>
             <p className="xisobot_box_date">
               {date.length === 1 ? "0" + date : date}.
               {month.length === 1 ? "0" + month : month}.{year}

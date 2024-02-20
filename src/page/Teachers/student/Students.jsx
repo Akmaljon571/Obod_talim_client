@@ -12,7 +12,7 @@ function TeachersStudents() {
   const token = localStorage.getItem("token");
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const [yonalish, setYonalish] = useState('');
+  const [yonalish, setYonalish] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
   const key = "delete";
   const [one, setOne] = useState([]);
@@ -54,10 +54,12 @@ function TeachersStudents() {
         })
           .then((res) => res.json())
           .then((yonalish) => {
-            const a = yonalish?.data.find(e => e._id == data.yonalish_id).title
-            setYonalish(a)
+            const a = yonalish?.data.find(
+              (e) => e._id == data.yonalish_id
+            ).title;
+            setYonalish(a);
           });
-        setOne(data)
+        setOne(data);
       });
   }, []);
 
@@ -81,7 +83,12 @@ function TeachersStudents() {
               <ul className="half_box_flextable">
                 <li className="item">
                   <div className="half_box_inner">
-                    <img src={img_url + one.image} alt="person" width={120} />
+                    <img
+                      src={img_url + one.image}
+                      alt="person"
+                      width={120}
+                      height={120}
+                    />
                     <p className="textt">{one.username}</p>
                     <p className="textt">{one.familiya}</p>
                   </div>

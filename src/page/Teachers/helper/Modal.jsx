@@ -99,6 +99,7 @@ const Modall = () => {
             content: "Loaded!",
             duration: 2,
           });
+          console.log("sadas");
         }
       });
     } else {

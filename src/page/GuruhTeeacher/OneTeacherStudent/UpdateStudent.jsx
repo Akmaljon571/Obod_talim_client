@@ -116,6 +116,7 @@ const UpdateStudent = ({ id }) => {
     const file = event.target.files[0];
     setFileContent(file?.name);
   };
+
   return (
     <>
       {contextHolder}
@@ -212,7 +213,11 @@ const UpdateStudent = ({ id }) => {
           </label>
           <label className="modal_form_bir">
             Guruh raqami
-            <select className="modal_form_inp" ref={guruhRaqamiRef}>
+            <select
+              className="modal_form_inp"
+              ref={guruhRaqamiRef}
+              defaultValue={student?.data?.guruh_id}
+            >
               {guruh?.data?.map((e, i) => {
                 return (
                   <option key={i} value={e._id}>
@@ -266,7 +271,6 @@ const UpdateStudent = ({ id }) => {
                 type="file"
                 name="file"
                 ref={imageRef}
-                // defaultValue={student?.data?.image}
               />
             </label>
           </div>

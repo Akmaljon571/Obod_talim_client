@@ -6,7 +6,7 @@ import useMyHook from "../../../hooks/hooks";
 const Modall = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teacher, setTeacher] = useState([]);
-  const { groupCount, setGroupCount } = useMyHook()
+  const { groupCount, setGroupCount } = useMyHook();
   const token = localStorage.getItem("token");
   const squenseRef = useRef();
   const titleRef = useRef();
@@ -24,8 +24,8 @@ const Modall = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setTeacher(data)
-        setGroupCount(groupCount + 1)
+        setTeacher(data);
+        setGroupCount(groupCount + 1);
       });
   }, []);
 
@@ -55,6 +55,7 @@ const Modall = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status == 201) {
+            setGroupCount(groupCount + 1);
             messageApi.open({
               key,
               type: "success",
@@ -69,11 +70,11 @@ const Modall = () => {
               duration: 2,
             });
           }
-          squenseRef.current.value = ""
-          titleRef.current.value = ""
-          uqituvchiRef.current.value = ""
-          darskunRef.current.value = ""
-          darsvaqtRef.current.value = ""
+          squenseRef.current.value = "";
+          titleRef.current.value = "";
+          uqituvchiRef.current.value = "";
+          darskunRef.current.value = "";
+          darsvaqtRef.current.value = "";
         });
     } else {
       messageApi.open({

@@ -12,6 +12,7 @@ function Oneguruh() {
   const [student, setStudent] = useState([]);
   const token = JSON.parse(localStorage.getItem("token"));
   const { id } = useParams();
+  const [yonalish, setYonalish] = useState("");
 
   useEffect(() => {
     fetch(`http://localhost:2004/guruh/one/${id}`, {
@@ -30,7 +31,21 @@ function Oneguruh() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setTeacher(data));
+      .then((data) => {
+        fetch(`http://localhost:2004/yonalish/all`, {
+          headers: {
+            authorization: token,
+          },
+        })
+          .then((res) => res.json())
+          .then((yonalish) => {
+            const a = yonalish?.data.find(
+              (e) => e._id == data?.teacher.map((e) => e.yonalish_id)
+            )?.title;
+            setYonalish(a);
+          });
+        setTeacher(data);
+      });
   }, [guruh]);
 
   useEffect(() => {
@@ -56,7 +71,7 @@ function Oneguruh() {
                   <li
                     key={i}
                     className="xisobot_flex_list_item2"
-                    style={{ height: "533px" }}
+                    style={{ height: "533px", width: "325px" }}
                   >
                     <div
                       className="xisobot_flex_list_item_box"
@@ -66,7 +81,7 @@ function Oneguruh() {
                         {e.username} {e.familiya}
                       </p>
                       <div style={{ padding: "15px" }}>
-                        <img src={img_url + e.image} width={120} alt="person" />
+                        <img src={img_url + e.image} width={120} height={120} alt="person" />
                         <div
                           style={{
                             display: "flex",
@@ -84,7 +99,7 @@ function Oneguruh() {
                           }}
                         >
                           <p className="textt">Yo‘nalishi:</p>{" "}
-                          <span>{e.yonalish_id}</span>
+                          <span>{yonalish}</span>
                         </div>
                         <div
                           style={{
@@ -138,7 +153,11 @@ function Oneguruh() {
                         }}
                       >
                         <p className="textt">Ustoz</p>{" "}
-                        <span>{guruh.teacher_id}</span>
+                        <span>
+                          {teacher?.teacher.map((e, i) => {
+                            return <span key={i}>{e.username}</span>;
+                          })}
+                        </span>
                       </div>
                       <div
                         style={{
@@ -164,51 +183,6 @@ function Oneguruh() {
                   </li>
                 );
               })}
-
-              {/* <div className="xisobot_flex_list_item_box box2">
-                <div className="box_guruh" key={guruh._id}>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "7px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <p className="textt">Guruh nomi</p>{" "}
-                    <span>{guruh.title}</span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "7px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <p className="textt">Ustoz</p>{" "}
-                    <span>{guruh.teacher_id}</span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "7px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <p className="textt">Dars kunlari</p>{" "}
-                    <span>{guruh.kun}</span>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "7px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <p className="textt">Dars vaqti</p>{" "}
-                    <span>{guruh.soat} </span>
-                  </div>
-                </div>
-              </div> */}
             </div>
             <div className="one_guruh">
               <div className="one_guruh_box">

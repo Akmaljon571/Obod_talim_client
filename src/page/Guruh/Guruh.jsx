@@ -14,7 +14,7 @@ function Guruh() {
   const navigate = useNavigate();
   const [guruh, setGuruh] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const { groupCount, setGroupCount } = useMyHook()
+  const { groupCount, setGroupCount } = useMyHook();
   const token = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
@@ -25,19 +25,23 @@ function Guruh() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setGuruh(data)
-        setSearchData(data)
+        setGuruh(data);
+        setSearchData(data);
       });
   }, [groupCount]);
 
   const searchFn = (e) => {
-    const text = e.target.value
+    const text = e.target.value;
     if (text) {
-      setGuruh({ data: searchData.data.filter(e => e.title.toLowerCase().includes(text.toLowerCase())) })
+      setGuruh({
+        data: searchData.data.filter((e) =>
+          e.title.toLowerCase().includes(text.toLowerCase())
+        ),
+      });
     } else {
-      setGuruh(searchData)
+      setGuruh(searchData);
     }
-  }
+  };
 
   const deleteGuruh = (id) => {
     fetch("http://localhost:2004/guruh/delete/" + id, {
@@ -47,7 +51,7 @@ function Guruh() {
       },
     }).then((data) => {
       if (data.ok) {
-        setGroupCount(groupCount + 1)
+        setGroupCount(groupCount + 1);
       }
     });
   };
@@ -96,7 +100,7 @@ function Guruh() {
                 <p className="guruh_list_more guruh_list_right right">More</p>
               </div>
 
-              <div className="guruh_list_box" style={{height: "400px"}}>
+              <div className="guruh_list_box" style={{ height: "400px" }}>
                 {guruh?.data?.map((e, i) => {
                   return (
                     <div key={i} className="guruh_list_item">
@@ -126,7 +130,10 @@ function Guruh() {
                           okText="Yes"
                           cancelText="No"
                         >
-                          <button style={{ paddingTop: "3px" }} className="guruh_list_box_btn">
+                          <button
+                            style={{ paddingTop: "3px" }}
+                            className="guruh_list_box_btn"
+                          >
                             <img src={deletee} alt="delete" />
                           </button>
                         </Popconfirm>

@@ -10,7 +10,7 @@ const UpdateStudent = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [guruh, setGuruh] = useState([]);
   const [student, setStudent] = useState([]);
-  const { studentCount, setStudentCount } = useMyHook()
+  const { studentCount, setStudentCount } = useMyHook();
   const token = JSON.parse(localStorage.getItem("token"));
   const usernameRef = useRef();
   const familyaRef = useRef();
@@ -24,6 +24,7 @@ const UpdateStudent = () => {
   const guruhRaqamiRef = useRef();
   const jinsiRef = useRef();
   const raqamRef = useRef();
+  const holatiRef = useRef();
   const { id } = useParams();
 
   useEffect(() => {
@@ -58,6 +59,7 @@ const UpdateStudent = () => {
     const otasiniismi = otasiniismiRef.current.value;
     const guruhraqami = guruhRaqamiRef.current.value;
     const jinsi = jinsiRef.current.value;
+    const holati = holatiRef.current.value;
     const raqam = String(raqamRef.current.value);
     const key = "update";
 
@@ -72,6 +74,7 @@ const UpdateStudent = () => {
     formData.append("otasini_ismi", otasiniismi);
     formData.append("jinsi", Boolean(jinsi));
     formData.append("raqam", raqam);
+    formData.append("holati", holati);
     formData.append("guruh_id", String(guruhraqami));
     if (img) {
       formData.append("image", img);
@@ -213,7 +216,11 @@ const UpdateStudent = () => {
           </label>
           <label className="modal_form_bir">
             Guruh raqami
-            <select className="modal_form_inp" ref={guruhRaqamiRef}>
+            <select
+              className="modal_form_inp"
+              ref={guruhRaqamiRef}
+              defaultValue={student?.data?.guruh_id}
+            >
               {guruh?.data?.map((e, i) => {
                 return (
                   <option key={i} value={e._id}>
@@ -245,6 +252,19 @@ const UpdateStudent = () => {
               <option value={false}>Ayol</option>
             </select>
           </label>
+          <label className="modal_form_bir">
+            Holati
+            <select
+              className="modal_form_inp"
+              name="jinsi"
+              ref={holatiRef}
+              defaultValue={student?.data?.holati}
+            >
+              <option value={"oqimoqda"}>O'qimoqda</option>
+              <option value={"ketgan"}>Ketgan</option>
+              <option value={"tamomladi"}>Tamomladi</option>
+            </select>
+          </label>
           <div
             className="modal_form_bir"
             style={{ position: "relative", overflow: "hidden" }}
@@ -267,7 +287,6 @@ const UpdateStudent = () => {
                 type="file"
                 name="file"
                 ref={imageRef}
-              // defaultValue={student?.data?.image}
               />
             </label>
           </div>

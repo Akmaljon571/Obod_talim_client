@@ -13,7 +13,7 @@ function Teachers() {
   const token = localStorage.getItem("token");
   const [teacher, setTeacher] = useState([]);
   const [teacherAll, setTeacherAll] = useState([]);
-  const { teacherCount } = useMyHook()
+  const { teacherCount } = useMyHook();
 
   useEffect(() => {
     fetch("http://localhost:2004/teacher/all", {
@@ -23,20 +23,23 @@ function Teachers() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setTeacher(data)
-        setTeacherAll(data)
+        setTeacher(data);
+        setTeacherAll(data);
       });
   }, [teacherCount]);
 
   const searchFN = (e) => {
-    const text = e.target.value
+    const text = e.target.value;
     if (text) {
-      setTeacher({ data: teacherAll.data.filter(e => e.username.toLowerCase().includes(text.toLowerCase())) })
+      setTeacher({
+        data: teacherAll.data.filter((e) =>
+          e.username.toLowerCase().includes(text.toLowerCase())
+        ),
+      });
     } else {
-      setTeacher(teacherAll)
+      setTeacher(teacherAll);
     }
-  }
-
+  };
   return (
     <>
       <div className="xisobot">
@@ -52,92 +55,106 @@ function Teachers() {
                   src={search}
                   alt="search"
                 />
-                <input onChange={searchFN} className="xisobot_flex_inp" type="text" name="search" placeholder="Search"/>
+                <input
+                  onChange={searchFN}
+                  className="xisobot_flex_inp"
+                  type="text"
+                  name="search"
+                  placeholder="Search"
+                />
               </div>
               <Modall />
             </div>
 
             <ul className="xisobot_flex_list">
-              {teacher?.data?.length ?
-                teacher?.data?.map((e, i) => {
-                  return (
-                    <li
-                      key={i}
-                      onClick={() => navigate("/teachers/" + e._id)}
-                      className="xisobot_flex_list_item"
-                      style={{ textDecoration: "none" }}
-                    >
-                      <div className="xisobot_flex_list_item_box">
-                        <p className="xisobot_flex_list_item_box_text">
-                          {e.username} {e.familiya}
-                        </p>
-                        <div style={{ padding: "20px" }}>
-                          <img src={img_url + e.image} width={120} alt="person" />
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "7px",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            <p className="textt">Ism</p>{" "}
-                            <span>{e.username}</span>
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "7px",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            <p className="textt">Yo‘nalishi:</p>{" "}
-                            <span>{e.yonalish_id}</span>
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "7px",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            <p className="textt">Tug’ilgan sana</p>{" "}
-                            <span>{e.tugilgan_sana}</span>
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "7px",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            <p className="textt">Telefon raqam:</p>{" "}
-                            <span>{e.raqam}</span>
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "7px",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            <p className="textt">Ta’lim darajasi</p>{" "}
-                            <span>{e.izoh}</span>
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "7px",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            <p className="textt">Otasining ismi</p>{" "}
-                            <span>{e.otasini_ismi}</span>
+              {teacher?.data?.length
+                ? teacher?.data?.map((e, i) => {
+                    return (
+                      <li
+                        key={i}
+                        onClick={() => navigate("/teachers/" + e._id)}
+                        className="xisobot_flex_list_item"
+                        style={{ textDecoration: "none", width: "30%" }}
+                      >
+                        <div className="xisobot_flex_list_item_box">
+                          <p className="xisobot_flex_list_item_box_text">
+                            {e.username} {e.familiya}
+                          </p>
+                          <div style={{ padding: "20px" }}>
+                            <img
+                              // style={{ borderRadius: "50%" }}
+                              src={img_url + e.image}
+                              width={150}
+                              height={140}
+                              alt="person"
+                            />
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "7px",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              <p className="textt">Ism</p>{" "}
+                              <span>{e.username}</span>
+                            </div>
+
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "7px",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              <p className="textt">Tug’ilgan sana</p>{" "}
+                              <span>{e.tugilgan_sana}</span>
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "7px",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              <p className="textt">Jinsi:</p>{" "}
+                              <span>{e.jinsi === true ? "Erkak" : "Ayol"}</span>
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "7px",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              <p className="textt">Telefon raqam:</p>{" "}
+                              <span>{e.raqam}</span>
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "7px",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              <p className="textt">Ta’lim darajasi</p>{" "}
+                              <span>{e.izoh}</span>
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "7px",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              <p className="textt">Otasining ismi</p>{" "}
+                              <span>{e.otasini_ismi}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </li>
-                  );
-                }) : null}
+                      </li>
+                    );
+                  })
+                : null}
             </ul>
           </div>
         </div>

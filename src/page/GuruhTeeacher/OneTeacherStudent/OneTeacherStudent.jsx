@@ -5,10 +5,12 @@ import UpdateStudent from "./UpdateStudent";
 import useMyHook from "../../../hooks/hooks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { img_url } from "../../../context";
 
 function OneTeacherStudent() {
   const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
+  const [yonalish, setYonalish] = useState("");
   const { studentCount } = useMyHook();
   const today = new Date();
   const month = String(today.getMonth() + 1);
@@ -43,7 +45,21 @@ function OneTeacherStudent() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setGuruh(data));
+      .then((data) => {
+        fetch(`http://localhost:2004/yonalish/all`, {
+          headers: {
+            authorization: token,
+          },
+        })
+          .then((res) => res.json())
+          .then((yonalish) => {
+            const a = yonalish?.data.find(
+              (e) => e._id == data?.teacher.map((e) => e.yonalish_id)
+            )?.title;
+            setYonalish(a);
+          });
+        setGuruh(data);
+      });
   }, [teacher]);
 
   useEffect(() => {
@@ -89,12 +105,13 @@ function OneTeacherStudent() {
                   return (
                     <div className="xisobot_flex_list_item_box" key={i + 1}>
                       <p className="xisobot_flex_list_item_box_text">
-                        {e.familiya} {e.username}
+                        <span style={{ fontSize: "18px" }}>{e.familiya}</span>{" "}
+                        <span style={{ fontSize: "18px" }}>{e.username}</span>
                       </p>
                       <div
                         style={{ padding: "15px", borderBottom: "1px solid" }}
                       >
-                        <img src={person} width={130} alt="person" />
+                        <img src={img_url + e.image} width={130} height={130} alt="person" />
                         <div
                           style={{
                             display: "flex",
@@ -113,7 +130,7 @@ function OneTeacherStudent() {
                           }}
                         >
                           <p className="textt">Yo‘nalishi:</p>{" "}
-                          <span>{e.yonalish_id}</span>
+                          <span>{yonalish}</span>
                         </div>
                         <div
                           style={{
@@ -149,43 +166,36 @@ function OneTeacherStudent() {
                     </div>
                   );
                 })}
-                {guruh?.guruh?.map((e, i) => {
-                  return (
-                    <div style={{ padding: "15px" }} key={i}>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "7px",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        <p className="textt">Guruh nomi</p>{" "}
-                        <span>{e.title}</span>
-                      </div>
+                <div style={{ padding: "15px" }} key={one._id}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "7px",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <p className="textt">Guruh nomi</p> <span>{one.title}</span>
+                  </div>
 
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "7px",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        <p className="textt">Dars kunlari</p>{" "}
-                        <span>{e.kun}</span>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "7px",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        <p className="textt">Dars vaqti</p>{" "}
-                        <span>{e.soat} </span>
-                      </div>
-                    </div>
-                  );
-                })}
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "7px",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <p className="textt">Dars kunlari</p> <span>{one.kun}</span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "7px",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <p className="textt">Dars vaqti</p> <span>{one.soat} </span>
+                  </div>
+                </div>
               </li>
             </div>
             <div className="one_guruh">

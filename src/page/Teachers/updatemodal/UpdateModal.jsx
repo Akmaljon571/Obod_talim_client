@@ -69,8 +69,14 @@ const UpdateModal = () => {
     formData.append("kocha", kocha == "" ? one.kocha : kocha);
     formData.append("uy", uy == "" ? one.uy : uy);
     formData.append("jsh", jsh == "" ? one.jsh : jsh);
-    formData.append("tugilgan_sana", tugilgan == "" ? one.tugilgan_sana : tugilgan);
-    formData.append("otasini_ismi", otasiniismi == "" ? one.otasini_ismi : otasiniismi);
+    formData.append(
+      "tugilgan_sana",
+      tugilgan == "" ? one.tugilgan_sana : tugilgan
+    );
+    formData.append(
+      "otasini_ismi",
+      otasiniismi == "" ? one.otasini_ismi : otasiniismi
+    );
     formData.append("yonalish_id", yonalish == "" ? one.yonalish_id : yonalish);
     formData.append("jinsi", jinsi == "" ? one.jinsi : jinsi);
     formData.append("raqam", raqam == "" ? one.raqam : raqam);
@@ -91,7 +97,7 @@ const UpdateModal = () => {
             content: "Muvaffaqiyatli",
             duration: 2,
           });
-          window.location.reload(true)
+          window.location.reload(true);
         } else {
           messageApi.open({
             key,
@@ -152,7 +158,6 @@ const UpdateModal = () => {
               type="text"
               name="password"
               ref={passwordRef}
-            // defaultValue={one?.password}
             />
           </label>
           <label className="modal_form_bir">
@@ -248,14 +253,23 @@ const UpdateModal = () => {
           </label>
           <label className="modal_form_bir">
             Jinsi
-            <select className="modal_form_inp" name="jinsi" ref={jinsiRef} defaultValue={one?.jinsi}>
+            <select
+              className="modal_form_inp"
+              name="jinsi"
+              ref={jinsiRef}
+              defaultValue={one?.jinsi}
+            >
               <option value={true}>Erkak</option>
               <option value={false}>Ayol</option>
             </select>
           </label>
           <label className="modal_form_bir">
             Ta’lim berayotgan yo’nalishi
-            <select className="modal_form_inp" ref={yonalishidRef} >
+            <select
+              className="modal_form_inp"
+              ref={yonalishidRef}
+              defaultValue={one?.yonalish_id}
+            >
               {yonalishData?.data?.map((e) => {
                 return (
                   <option key={e._id} value={e._id}>

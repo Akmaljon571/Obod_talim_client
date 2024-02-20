@@ -12,6 +12,7 @@ function GuruhTeacher() {
   const date = String(today.getDate());
   const [teacher, setTeacher] = useState([]);
   const [guruh, setGuruh] = useState([]);
+  const [guruhAll, setGuruhAll] = useState([]);
   const token = JSON.parse(localStorage.getItem("token"));
 
   const logout = () => {
@@ -37,8 +38,23 @@ function GuruhTeacher() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setGuruh(data?.guruh));
+      .then((data) => {
+        setGuruh(data?.guruh);
+        setGuruhAll(data?.guruh);
+      });
   }, [teacher]);
+
+  const searchFN = (e) => {
+    const text = e.target.value;
+    if (text) {
+      const results = guruh.filter((item) =>
+        item.sequence.toString().includes(text)
+      );
+      setGuruh(results);
+    } else {
+      setGuruh(guruhAll);
+    }
+  };
 
   return (
     <>
@@ -69,10 +85,10 @@ function GuruhTeacher() {
                   className="xisobot_flex_inp"
                   type="text"
                   name="search"
-                  placeholder="Guruh nomini kiriting"
+                  onChange={searchFN}
+                  placeholder="Guruh raqamini kiriting"
                 />
               </div>
-              {/* <Modall /> */}
             </div>
             <div className="guruh">
               <div className="guruh_list">
@@ -83,29 +99,31 @@ function GuruhTeacher() {
               </div>
 
               <div className="guruh_list_box" style={{ height: "415px" }}>
-                {guruh?.map((e, i) => {
-                  return (
-                    <div
-                      onClick={() => navigate("/groups/teacher/" + e._id)}
-                      className="guruh_list_item"
-                      style={{ cursor: "pointer" }}
-                      key={i}
-                    >
-                      <div className="guruh_list_text">
-                        <p>{i + 1}</p>
-                      </div>
-                      <div className="guruh_list_text2">
-                        <p>{e.title}</p>
-                      </div>
-                      <div className="guruh_list_text3">
-                        <p>{e.sequence}</p>
-                      </div>
-                      <div className="guruh_list_text3">
-                        <p>{e.kun}</p>
-                      </div>
-                    </div>
-                  );
-                })}
+                {guruh?.length
+                  ? guruh?.map((e, i) => {
+                      return (
+                        <div
+                          onClick={() => navigate("/groups/teacher/" + e._id)}
+                          className="guruh_list_item"
+                          style={{ cursor: "pointer" }}
+                          key={i}
+                        >
+                          <div className="guruh_list_text">
+                            <p>{i + 1}</p>
+                          </div>
+                          <div className="guruh_list_text2">
+                            <p>{e.title}</p>
+                          </div>
+                          <div className="guruh_list_text3">
+                            <p>{e.sequence}</p>
+                          </div>
+                          <div className="guruh_list_text3">
+                            <p>{e.kun}</p>
+                          </div>
+                        </div>
+                      );
+                    })
+                  : null}
               </div>
             </div>
           </div>

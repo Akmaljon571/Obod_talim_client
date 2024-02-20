@@ -27,7 +27,7 @@ function LayoutTeacher() {
             }
           >
             <img src={home} alt="home" width={25} height={25} />
-            <p className="box_wrapper_list_item_text">Home</p>
+            <p className="box_wrapper_list_item_text">Statistika</p>
           </NavLink>
 
           <NavLink

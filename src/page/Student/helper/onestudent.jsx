@@ -93,7 +93,8 @@ function Onestudent() {
                       style={{ borderRadius: "20px" }}
                       src={img_url + student?.data?.image}
                       alt="person"
-                      width={120}
+                      width={140}
+                      height={120}
                     />
                       <p className="textt">{student?.data?.username}</p>
                       <p className="textt">{student?.data?.familiya}</p>
