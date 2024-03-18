@@ -3,6 +3,7 @@ import { Modal, message } from "antd";
 import download from "../../../img/download.svg";
 import { useParams } from "react-router-dom";
 import useMyHook from "../../../hooks/hooks";
+import { url } from "../../../context";
 
 const UpdateStudent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +29,7 @@ const UpdateStudent = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch("http://localhost:2004/guruh/all", {
+    fetch(url + "guruh/all", {
       headers: {
         authorization: token,
       },
@@ -38,7 +39,7 @@ const UpdateStudent = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:2004/student/one/" + id, {
+    fetch(url + "student/one/" + id, {
       headers: {
         authorization: token,
       },
@@ -79,7 +80,7 @@ const UpdateStudent = () => {
     if (img) {
       formData.append("image", img);
     }
-    fetch("http://localhost:2004/student/update/" + id, {
+    fetch(url + "student/update/" + id, {
       method: "PATCH",
       headers: {
         authorization: token,

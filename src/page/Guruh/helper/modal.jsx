@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Modal } from "antd";
 import { message } from "antd";
 import useMyHook from "../../../hooks/hooks";
+import { url } from "../../../context";
 
 const Modall = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +18,7 @@ const Modall = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    fetch("http://localhost:2004/teacher/all", {
+    fetch(url + "teacher/all", {
       headers: {
         authorization: JSON.parse(token),
       },
@@ -38,7 +39,7 @@ const Modall = () => {
     const key = "add";
 
     if (squense && title && uqituvchi && darskun && darsvaqt) {
-      fetch("http://localhost:2004/guruh/create", {
+      fetch(url + "guruh/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

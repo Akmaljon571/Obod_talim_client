@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { Modal, message } from "antd";
 import updateImg from "../../../img/update.svg";
 import useMyHook from "../../../hooks/hooks";
+import { url } from "../../../context";
 
 const Update = ({ id, title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,7 +16,7 @@ const Update = ({ id, title }) => {
     const yonalish = yonalishRef.current.value;
     const key = "delete";
 
-    fetch(`http://localhost:2004/yonalish/update/${id}`, {
+    fetch(url + `yonalish/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

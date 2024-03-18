@@ -3,6 +3,7 @@ import { Modal, message } from "antd";
 import download from "../../../img/download.svg";
 import useMyHook from "../../../hooks/hooks";
 import "./Modal.scss";
+import { url } from "../../../context";
 
 const Modall = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -27,7 +28,7 @@ const Modall = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("http://localhost:2004/yonalish/all")
+    fetch(url + "yonalish/all")
       .then((res) => res.json())
       .then((data) => setYonalish(data));
   }, []);
@@ -77,7 +78,7 @@ const Modall = () => {
       formData.append("jinsi", jinsi);
       formData.append("raqam", raqam);
       formData.append("izoh", daraja);
-      fetch("http://localhost:2004/teacher/create", {
+      fetch(url + "teacher/create", {
         method: "POST",
         headers: {
           authorization: JSON.parse(token),

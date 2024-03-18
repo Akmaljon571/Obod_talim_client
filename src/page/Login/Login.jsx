@@ -4,6 +4,7 @@ import logo from "../../img/logo.svg";
 import { useRef, useState } from "react";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { url } from "../../context";
 
 function Login() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -24,7 +25,7 @@ function Login() {
         content: "loading...",
         duration: 2,
       });
-      fetch("http://localhost:2004/admin/login", {
+      fetch(url + "admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +69,7 @@ function Login() {
         content: "Loading...",
         duration: 2,
       });
-      fetch("http://localhost:2004/admin/login/code", {
+      fetch(url + "admin/login/code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +91,7 @@ function Login() {
         content: "Loading...",
         duration: 2,
       });
-      fetch("http://localhost:2004/admin/login/code", {
+      fetch(url + "admin/login/code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

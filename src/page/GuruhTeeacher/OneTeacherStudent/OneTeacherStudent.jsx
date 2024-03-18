@@ -5,7 +5,7 @@ import UpdateStudent from "./UpdateStudent";
 import useMyHook from "../../../hooks/hooks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { img_url } from "../../../context";
+import { img_url, url } from "../../../context";
 
 function OneTeacherStudent() {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -29,7 +29,7 @@ function OneTeacherStudent() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:2004/teacher/one`, {
+    fetch(url + `teacher/one`, {
       headers: {
         authorization: token,
       },
@@ -39,14 +39,14 @@ function OneTeacherStudent() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:2004/guruh/teacher/${teacher?._id}`, {
+    fetch(url + `guruh/teacher/${teacher?._id}`, {
       headers: {
         authorization: token,
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        fetch(`http://localhost:2004/yonalish/all`, {
+        fetch(url + `yonalish/all`, {
           headers: {
             authorization: token,
           },
@@ -63,7 +63,7 @@ function OneTeacherStudent() {
   }, [teacher]);
 
   useEffect(() => {
-    fetch(`http://localhost:2004/guruh/one/${id}`, {
+    fetch(url + `guruh/one/${id}`, {
       headers: {
         authorization: token,
       },
@@ -73,7 +73,7 @@ function OneTeacherStudent() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:2004/student/guruh/${one?._id}`, {
+    fetch(url + `student/guruh/${one?._id}`, {
       headers: {
         authorization: token,
       },

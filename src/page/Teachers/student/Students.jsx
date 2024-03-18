@@ -5,7 +5,7 @@ import UpdateModal from "../updatemodal/UpdateModal";
 import Table from "./Table";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { img_url } from "../../../context";
+import { img_url, url } from "../../../context";
 import Header from "../../../components/header/header";
 
 function TeachersStudents() {
@@ -19,7 +19,7 @@ function TeachersStudents() {
   const { id } = useParams();
 
   const teacherDelete = (id) => {
-    fetch("http://localhost:2004/teacher/delete/" + id, {
+    fetch(url + "teacher/delete/" + id, {
       method: "DELETE",
       headers: {
         authorization: JSON.parse(token),
@@ -40,14 +40,14 @@ function TeachersStudents() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:2004/teacher/one/${id}`, {
+    fetch(url + `teacher/one/${id}`, {
       headers: {
         authorization: JSON.parse(token),
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        fetch(`http://localhost:2004/yonalish/all`, {
+        fetch(url + `yonalish/all`, {
           headers: {
             authorization: JSON.parse(token),
           },

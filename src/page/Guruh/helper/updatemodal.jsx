@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Modal, message } from "antd";
 import update from "../../../img/update.svg";
 import useMyHook from "../../../hooks/hooks";
+import { url } from "../../../context";
 
 const UpdateGuruh = (params) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,7 @@ const UpdateGuruh = (params) => {
   const id = params.id;
 
   useEffect(() => {
-    fetch("http://localhost:2004/teacher/all", {
+    fetch(url + "teacher/all", {
       headers: {
         authorization: JSON.parse(token),
       },
@@ -28,7 +29,7 @@ const UpdateGuruh = (params) => {
   }, []);
 
   const oneGuruh = (id) => {
-    fetch(`http://localhost:2004/guruh/one/${id}`, {
+    fetch(url + `guruh/one/${id}`, {
       headers: {
         authorization: JSON.parse(token),
       },
@@ -45,7 +46,7 @@ const UpdateGuruh = (params) => {
     const vaqt = vaqtRef.current.value;
     const key = "update";
 
-    fetch(`http://localhost:2004/guruh/update/${id}`, {
+    fetch(url + `guruh/update/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

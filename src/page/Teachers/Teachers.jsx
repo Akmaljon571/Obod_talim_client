@@ -5,7 +5,7 @@ import search from "../../img/search.svg";
 import Modall from "./helper/Modal";
 import useMyHook from "../../hooks/hooks";
 import Header from "../../components/header/header";
-import { img_url } from "../../context";
+import { img_url, url } from "../../context";
 import "./Teachers.scss";
 
 function Teachers() {
@@ -16,7 +16,7 @@ function Teachers() {
   const { teacherCount } = useMyHook();
 
   useEffect(() => {
-    fetch("http://localhost:2004/teacher/all", {
+    fetch(url + "teacher/all", {
       headers: {
         authorization: JSON.parse(token),
       },
@@ -69,91 +69,91 @@ function Teachers() {
             <ul className="xisobot_flex_list">
               {teacher?.data?.length
                 ? teacher?.data?.map((e, i) => {
-                    return (
-                      <li
-                        key={i}
-                        onClick={() => navigate("/teachers/" + e._id)}
-                        className="xisobot_flex_list_item"
-                        style={{ textDecoration: "none", width: "30%" }}
-                      >
-                        <div className="xisobot_flex_list_item_box">
-                          <p className="xisobot_flex_list_item_box_text">
-                            {e.username} {e.familiya}
-                          </p>
-                          <div style={{ padding: "20px" }}>
-                            <img
-                              // style={{ borderRadius: "50%" }}
-                              src={img_url + e.image}
-                              width={150}
-                              height={140}
-                              alt="person"
-                            />
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: "7px",
-                                marginBottom: "8px",
-                              }}
-                            >
-                              <p className="textt">Ism</p>{" "}
-                              <span>{e.username}</span>
-                            </div>
+                  return (
+                    <li
+                      key={i}
+                      onClick={() => navigate("/teachers/" + e._id)}
+                      className="xisobot_flex_list_item"
+                      style={{ textDecoration: "none", width: "30%" }}
+                    >
+                      <div className="xisobot_flex_list_item_box">
+                        <p className="xisobot_flex_list_item_box_text">
+                          {e.username} {e.familiya}
+                        </p>
+                        <div style={{ padding: "20px" }}>
+                          <img
+                            // style={{ borderRadius: "50%" }}
+                            src={img_url + e.image}
+                            width={150}
+                            height={140}
+                            alt="person"
+                          />
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "7px",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <p className="textt">Ism</p>{" "}
+                            <span>{e.username}</span>
+                          </div>
 
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: "7px",
-                                marginBottom: "8px",
-                              }}
-                            >
-                              <p className="textt">Tug’ilgan sana</p>{" "}
-                              <span>{e.tugilgan_sana}</span>
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: "7px",
-                                marginBottom: "8px",
-                              }}
-                            >
-                              <p className="textt">Jinsi:</p>{" "}
-                              <span>{e.jinsi === true ? "Erkak" : "Ayol"}</span>
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: "7px",
-                                marginBottom: "8px",
-                              }}
-                            >
-                              <p className="textt">Telefon raqam:</p>{" "}
-                              <span>{e.raqam}</span>
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: "7px",
-                                marginBottom: "8px",
-                              }}
-                            >
-                              <p className="textt">Ta’lim darajasi</p>{" "}
-                              <span>{e.izoh}</span>
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: "7px",
-                                marginBottom: "8px",
-                              }}
-                            >
-                              <p className="textt">Otasining ismi</p>{" "}
-                              <span>{e.otasini_ismi}</span>
-                            </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "7px",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <p className="textt">Tug’ilgan sana</p>{" "}
+                            <span>{e.tugilgan_sana}</span>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "7px",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <p className="textt">Jinsi:</p>{" "}
+                            <span>{e.jinsi === true ? "Erkak" : "Ayol"}</span>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "7px",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <p className="textt">Telefon raqam:</p>{" "}
+                            <span>{e.raqam}</span>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "7px",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <p className="textt">Ta’lim darajasi</p>{" "}
+                            <span>{e.izoh}</span>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "7px",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <p className="textt">Otasining ismi</p>{" "}
+                            <span>{e.otasini_ismi}</span>
                           </div>
                         </div>
-                      </li>
-                    );
-                  })
+                      </div>
+                    </li>
+                  );
+                })
                 : null}
             </ul>
           </div>

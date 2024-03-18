@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Update from "./helper/updatemodal";
 import { Header } from "../../components";
 import useMyHook from "../../hooks/hooks";
+import { url } from "../../context";
 
 function Yunalish() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -15,7 +16,7 @@ function Yunalish() {
 
   const [yonalish, setYonalish] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:2004/yonalish/all")
+    fetch(url + "yonalish/all")
       .then((res) => res.json())
       .then((data) => setYonalish(data));
   }, [yonalishCount]);
@@ -26,7 +27,7 @@ function Yunalish() {
     const key = "add";
 
     if (nomi) {
-      fetch("http://localhost:2004/yonalish/create", {
+      fetch(url + "yonalish/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +52,7 @@ function Yunalish() {
   };
 
   const deleteYonalish = (id) => {
-    fetch("http://localhost:2004/yonalish/delete/" + id, {
+    fetch(url + "yonalish/delete/" + id, {
       method: "DELETE",
       headers: {
         authorization: JSON.parse(token),

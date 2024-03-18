@@ -2,6 +2,7 @@ import { Modal, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 import download from "../../../img/download.svg";
 import useMyHook from "../../../hooks/hooks";
+import { url } from "../../../context";
 
 const Addmodal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,7 @@ const Addmodal = () => {
   const raqamRef = useRef();
 
   useEffect(() => {
-    fetch("http://localhost:2004/guruh/all", {
+    fetch(url + "guruh/all", {
       headers: {
         authorization: JSON.parse(token),
       },
@@ -79,7 +80,7 @@ const Addmodal = () => {
       formData.append("guruh_id", String(guruhraqami));
       formData.append("image", img);
       formData.append("holati", "oqimoqda");
-      fetch("http://localhost:2004/student/create", {
+      fetch(url + "student/create", {
         method: "POST",
         headers: {
           authorization: JSON.parse(token),

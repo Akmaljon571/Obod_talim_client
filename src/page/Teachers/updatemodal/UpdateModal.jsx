@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Modal, message } from "antd";
 import { useParams } from "react-router-dom";
 import download from "../../../img/download.svg";
+import { url } from "../../../context";
 
 const UpdateModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,7 +28,7 @@ const UpdateModal = () => {
 
   const [one, setOne] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:2004/teacher/one/${id}`, {
+    fetch(url + `teacher/one/${id}`, {
       headers: {
         authorization: JSON.parse(token),
       },
@@ -37,7 +38,7 @@ const UpdateModal = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:2004/yonalish/all")
+    fetch(url + "yonalish/all")
       .then((res) => res.json())
       .then((data) => setYonalish(data));
   }, []);
@@ -81,7 +82,7 @@ const UpdateModal = () => {
     formData.append("jinsi", jinsi == "" ? one.jinsi : jinsi);
     formData.append("raqam", raqam == "" ? one.raqam : raqam);
     formData.append("izoh", daraja == "" ? one.izoh : daraja);
-    fetch(`http://localhost:2004/teacher/update/${id}`, {
+    fetch(url + `teacher/update/${id}`, {
       method: "PATCH",
       headers: {
         authorization: JSON.parse(token),

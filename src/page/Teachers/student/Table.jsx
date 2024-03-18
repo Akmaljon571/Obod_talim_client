@@ -2,6 +2,7 @@ import { useRef } from "react";
 import "./Students.scss";
 import { useParams } from "react-router-dom";
 import { message } from "antd";
+import { url } from "../../../context";
 
 function Table() {
   const textRef = useRef();
@@ -12,7 +13,7 @@ function Table() {
 
   const send = () => {
     const desc = textRef.current.value;
-    fetch("http://localhost:2004/sms/send", {
+    fetch(url + "sms/send", {
       method: "POST",
       headers: {
         authorization: JSON.parse(token),

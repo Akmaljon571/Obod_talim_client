@@ -5,7 +5,7 @@ import Layout from "../../Layout/Layout";
 import UpdateStudent from "../helper/updatemodal";
 import useMyHook from "../../../hooks/hooks";
 import { Header } from "../../../components";
-import { img_url } from "../../../context";
+import { img_url, url } from "../../../context";
 import "./onestudent.scss";
 
 function Onestudent() {
@@ -18,7 +18,7 @@ function Onestudent() {
   const textRef = useRef();
 
   useEffect(() => {
-    fetch("http://localhost:2004/student/one/" + id, {
+    fetch(url + "student/one/" + id, {
       headers: {
         authorization: JSON.parse(token),
       },
@@ -26,7 +26,7 @@ function Onestudent() {
       .then((res) => res.json())
       .then((data1) => {
         setStudent(data1);
-        fetch("http://localhost:2004/guruh/all", {
+        fetch(url + "guruh/all", {
           headers: {
             authorization: JSON.parse(token),
           },
@@ -39,7 +39,7 @@ function Onestudent() {
   }, [studentCount]);
 
   const studentDelete = (id) => {
-    fetch("http://localhost:2004/student/delete/" + id, {
+    fetch(url + "student/delete/" + id, {
       method: "DELETE",
       headers: {
         authorization: JSON.parse(token),
@@ -62,7 +62,7 @@ function Onestudent() {
 
   const send = () => {
     const desc = textRef.current.value;
-    fetch("http://localhost:2004/sms/send", {
+    fetch(url + "sms/send", {
       method: "POST",
       headers: {
         authorization: JSON.parse(token),
@@ -96,8 +96,8 @@ function Onestudent() {
                       width={140}
                       height={120}
                     />
-                      <p className="textt">{student?.data?.username}</p>
-                      <p className="textt">{student?.data?.familiya}</p>
+                    <p className="textt">{student?.data?.username}</p>
+                    <p className="textt">{student?.data?.familiya}</p>
                   </div>
                   <div className="xisobot_flex_list_item_box">
                     <div style={{ paddingLeft: "15px", paddingRight: "15px" }}>

@@ -4,6 +4,7 @@ import guruh from "../../img/iconguruhlar.png";
 import LayoutTeacher from "../LayoutTeacher/LayoutTeacher";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { url } from "../../context";
 
 function Statistika() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Statistika() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:2004/admin/dashboard/teacher`, {
+    fetch(url + `admin/dashboard/teacher`, {
       headers: {
         authorization: token,
       },
@@ -32,7 +33,7 @@ function Statistika() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:2004/sms/one`, {
+    fetch(url + `sms/one`, {
       headers: {
         authorization: token,
       },

@@ -6,13 +6,14 @@ import teacher1 from "../../img/iconteacher.png";
 import guruh1 from "../../img/iconguruhlar.png";
 import ketganlar from "../../img/iconketganlar.png";
 import "./Xisobot.scss";
+import { url } from "../../context";
 
 function Xisobot() {
   const token = localStorage.getItem("token");
   const [datas, setDatas] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:2004/admin/dashboard", {
+    fetch(url + "admin/dashboard", {
       headers: {
         authorization: JSON.parse(token),
       },

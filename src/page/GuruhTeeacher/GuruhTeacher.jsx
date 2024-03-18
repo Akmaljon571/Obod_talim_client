@@ -3,6 +3,7 @@ import search from "../../img/search.svg";
 import { useNavigate } from "react-router-dom";
 import LayoutTeacher from "../LayoutTeacher/LayoutTeacher";
 import { useEffect, useState } from "react";
+import { url } from "../../context";
 
 function GuruhTeacher() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function GuruhTeacher() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:2004/teacher/one`, {
+    fetch(url + `teacher/one`, {
       headers: {
         authorization: token,
       },
@@ -32,7 +33,7 @@ function GuruhTeacher() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:2004/guruh/teacher/${teacher?._id}`, {
+    fetch(url + `guruh/teacher/${teacher?._id}`, {
       headers: {
         authorization: token,
       },
@@ -101,28 +102,28 @@ function GuruhTeacher() {
               <div className="guruh_list_box" style={{ height: "415px" }}>
                 {guruh?.length
                   ? guruh?.map((e, i) => {
-                      return (
-                        <div
-                          onClick={() => navigate("/groups/teacher/" + e._id)}
-                          className="guruh_list_item"
-                          style={{ cursor: "pointer" }}
-                          key={i}
-                        >
-                          <div className="guruh_list_text">
-                            <p>{i + 1}</p>
-                          </div>
-                          <div className="guruh_list_text2">
-                            <p>{e.title}</p>
-                          </div>
-                          <div className="guruh_list_text3">
-                            <p>{e.sequence}</p>
-                          </div>
-                          <div className="guruh_list_text3">
-                            <p>{e.kun}</p>
-                          </div>
+                    return (
+                      <div
+                        onClick={() => navigate("/groups/teacher/" + e._id)}
+                        className="guruh_list_item"
+                        style={{ cursor: "pointer" }}
+                        key={i}
+                      >
+                        <div className="guruh_list_text">
+                          <p>{i + 1}</p>
                         </div>
-                      );
-                    })
+                        <div className="guruh_list_text2">
+                          <p>{e.title}</p>
+                        </div>
+                        <div className="guruh_list_text3">
+                          <p>{e.sequence}</p>
+                        </div>
+                        <div className="guruh_list_text3">
+                          <p>{e.kun}</p>
+                        </div>
+                      </div>
+                    );
+                  })
                   : null}
               </div>
             </div>

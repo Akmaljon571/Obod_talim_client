@@ -4,7 +4,7 @@ import Layout from "../../Layout/Layout";
 import person from "../../../img/person.svg";
 import "./oneguruh.scss";
 import { Header } from "../../../components";
-import { img_url } from "../../../context";
+import { img_url, url } from "../../../context";
 
 function Oneguruh() {
   const [teacher, setTeacher] = useState([]);
@@ -15,7 +15,7 @@ function Oneguruh() {
   const [yonalish, setYonalish] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:2004/guruh/one/${id}`, {
+    fetch(url + `guruh/one/${id}`, {
       headers: {
         authorization: token,
       },
@@ -25,14 +25,14 @@ function Oneguruh() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:2004/guruh/teacher/${guruh.teacher_id}`, {
+    fetch(url + `guruh/teacher/${guruh.teacher_id}`, {
       headers: {
         authorization: token,
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        fetch(`http://localhost:2004/yonalish/all`, {
+        fetch(url + `yonalish/all`, {
           headers: {
             authorization: token,
           },
@@ -49,7 +49,7 @@ function Oneguruh() {
   }, [guruh]);
 
   useEffect(() => {
-    fetch(`http://localhost:2004/student/guruh/${id}`, {
+    fetch(url + `student/guruh/${id}`, {
       headers: {
         authorization: token,
       },

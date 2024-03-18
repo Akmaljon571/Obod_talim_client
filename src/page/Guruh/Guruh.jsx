@@ -9,6 +9,7 @@ import UpdateGuruh from "./helper/updatemodal";
 import { Header } from "../../components";
 import useMyHook from "../../hooks/hooks";
 import "./Guruh.scss";
+import { url } from "../../context";
 
 function Guruh() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Guruh() {
   const token = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
-    fetch("http://localhost:2004/guruh/all", {
+    fetch(url + "guruh/all", {
       headers: {
         authorization: token,
       },
@@ -44,7 +45,7 @@ function Guruh() {
   };
 
   const deleteGuruh = (id) => {
-    fetch("http://localhost:2004/guruh/delete/" + id, {
+    fetch(url + "guruh/delete/" + id, {
       method: "DELETE",
       headers: {
         authorization: token,

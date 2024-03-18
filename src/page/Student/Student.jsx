@@ -6,6 +6,7 @@ import Addmodal from "./helper/modal";
 import { Header } from "../../components";
 import useMyHook from "../../hooks/hooks";
 import "./Student.scss";
+import { url } from "../../context";
 
 function Student() {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -15,7 +16,7 @@ function Student() {
   const { studentCount } = useMyHook()
 
   useEffect(() => {
-    fetch(`http://localhost:2004/student/all`, {
+    fetch(url + `student/all`, {
       headers: {
         authorization: token,
       },
@@ -52,7 +53,7 @@ function Student() {
                   src={search}
                   alt="search"
                 />
-                <input onChange={searchFN} className="xisobot_flex_inp" type="text" name="search" placeholder="Serach"/>
+                <input onChange={searchFN} className="xisobot_flex_inp" type="text" name="search" placeholder="Serach" />
               </div>
               <Addmodal />
             </div>

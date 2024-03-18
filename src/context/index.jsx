@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 
 export const State = createContext()
-export const url = ''
+export const url = 'http://localhost:2004/'
 export const img_url = 'http://localhost:2004/image/'
 export const video_url = ''
 
